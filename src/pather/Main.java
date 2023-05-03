@@ -17,8 +17,42 @@ public class Main extends Application {
     private Pane root = new Pane();
     Scene scene = new Scene(root);
 
+    // Last movement key pressed
+    MovementKeys movementKey = MovementKeys.DOWN;
+
+    // Capture input
+    void processInput(){
+        scene.setOnKeyPressed(e -> {
+            // Save what movement key last pressed
+            switch (e.getCode()) {
+                // Up
+                case W:
+                    System.out.println("W pressed");
+                    movementKey = MovementKeys.UP;
+                    break;
+
+                // Left
+                case A:
+                    System.out.println("A pressed");
+                    movementKey = MovementKeys.LEFT;
+                    break;
+
+                // Down
+                case S:
+                    System.out.println("S pressed");
+                    movementKey = MovementKeys.DOWN;
+                    break;
+
+                // Right
+                case D:
+                    System.out.println("D pressed");
+                    movementKey = MovementKeys.RIGHT;
+                    break;
+            } 
+        });
+    }
+
     private void update(){
-        System.out.println("lol");
     }
 
     private void initialize(){
@@ -34,7 +68,7 @@ public class Main extends Application {
                 // Cap frames
                 if (now - lastUpdate >= 64_000_000) {
                     
-                    // processInput();
+                    processInput();
                     update();
 
                     lastUpdate = now;
