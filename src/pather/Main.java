@@ -7,18 +7,28 @@ import javafx.scene.layout.Pane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 import java.util.HashMap;
 import java.util.Random;
 
 public class Main extends Application {
+
+    // Fields
 
     // Window parameters
     final int WIDTH = 600, HEIGHT = WIDTH;
     private Pane root = new Pane();
     Scene scene = new Scene(root);
 
+
+    Maze maze = new Maze(5,5);
+    Room room = new Room();
+
     // Last movement key pressed
     MovementKeys movementKey = MovementKeys.DOWN;
+
+    // Methods
 
     // Capture input
     void processInput(){
@@ -83,6 +93,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         initialize();
 
+        // maze.setRoom(1, 1, room);
+        System.out.println(maze.getRoom(1, 2).getSeat("Middle"));
+
+        scene.setFill(Paint.valueOf("BLACK"));
         primaryStage.setTitle("Pather");
         primaryStage.setScene(scene);
         primaryStage.show();
