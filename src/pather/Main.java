@@ -30,10 +30,16 @@ public class Main extends Application {
     // Last movement key pressed
     MovementKeys movementKey = MovementKeys.DOWN;
 
+    boolean inputPressed = false;
+
+
+    Player player = new Player(maze);
+
     // Methods
 
     // Capture input
     void processInput(){
+
         scene.setOnKeyPressed(e -> {
             // Save what movement key last pressed
             switch (e.getCode()) {
@@ -41,26 +47,44 @@ public class Main extends Application {
                 case W:
                     System.out.println("W pressed");
                     movementKey = MovementKeys.UP;
+
+                    inputPressed = true;
+
                     break;
 
                 // Left
                 case A:
                     System.out.println("A pressed");
                     movementKey = MovementKeys.LEFT;
+
+                    inputPressed = true;
+
                     break;
 
                 // Down
                 case S:
                     System.out.println("S pressed");
                     movementKey = MovementKeys.DOWN;
+
+                    inputPressed = true;
+
                     break;
 
                 // Right
                 case D:
                     System.out.println("D pressed");
                     movementKey = MovementKeys.RIGHT;
-                    break;
+
+                    inputPressed = true;
+
+                    player.move(movementKey);
                     
+                    System.out.println(maze.getRoom(0, 0).getSeat("middle"));
+                    System.out.println(maze.getRoom(1, 0).getSeat("middle"));
+
+
+                    break;
+
                 // Rotate
                 case R:
                     System.out.println("R pressed");
@@ -71,6 +95,11 @@ public class Main extends Application {
     }
 
     private void update(){
+
+        // System.out.println(inputPressed);
+
+        if(inputPressed){
+        }
     }
 
     private void initialize(){
@@ -86,10 +115,13 @@ public class Main extends Application {
                 // Cap frames
                 if (now - lastUpdate >= 64_000_000) {
                     
+
                     processInput();
                     update();
 
+
                     lastUpdate = now;
+                    
                 }
             }
         };
@@ -122,6 +154,9 @@ public class Main extends Application {
         System.out.println(maze.getRoom(0, 0).getSeat("right"));
         System.out.println(maze.getRoom(1, 0).getSeat("right"));
 
+
+        System.out.println(maze.getRoom(0, 0).getSeat("middle"));
+        System.out.println(maze.getRoom(1, 0).getSeat("middle"));
 
         // System.out.println(block.getAdjacentCoord(block.seedRoomCoords, "right")[1]);
 
