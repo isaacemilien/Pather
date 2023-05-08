@@ -25,7 +25,7 @@ public class Main extends Application {
     Maze maze = new Maze(5,5);
     Room room = new Room();
 
-    Block block = new Block("This is my whole as fucking rahhhh shit");
+    Block block = new Block(maze, "This is my whole as fucking rahhhh shit");
 
     // Last movement key pressed
     MovementKeys movementKey = MovementKeys.DOWN;
@@ -68,6 +68,11 @@ public class Main extends Application {
 
                     inputPressed = true;
 
+                    player.move(movementKey);
+                    
+                    System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
+                    System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
+
                     break;
 
                 // Right
@@ -79,8 +84,8 @@ public class Main extends Application {
 
                     player.move(movementKey);
                     
-                    System.out.println(maze.getRoom(0, 0).getSeat("middle"));
-                    System.out.println(maze.getRoom(1, 0).getSeat("middle"));
+                    System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
+                    System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
 
 
                     break;
@@ -134,31 +139,46 @@ public class Main extends Application {
         initialize();
 
         // maze.setRoom(1, 1, room);
-        System.out.println(maze.getRoom(0, 0).getSeat("Middle"));
+        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
 
-        maze.board[0][0].setSeat("Middle", "fuck");
-        maze.board[1][0].setSeat("Middle", "im to the right lol");
+        maze.board[0][0].setSeat(RoomSides.MIDDLE, "fuck");
+        maze.board[1][0].setSeat(RoomSides.MIDDLE, "im to the right lol");
 
-        System.out.println(maze.getRoom(0, 0).getSeat("Middle"));
+        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
 
-        block.seedRoom = maze.getRoom(block.seedRoomCoords[0], block.seedRoomCoords[1]);
+        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
+        System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
 
+        block.place(new int[] {0,0}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
 
-        int[] lol = block.getAdjacentCoord(new int[] {block.seedRoomCoords[0], block.seedRoomCoords[1]}, block.placementSide);
-
-        block.adjacentRoom = maze.getRoom(lol[0], lol[1]);
-        System.out.println(block.adjacentRoom.getSeat("Middle"));
-
-        block.deliverObjects();
-
-        System.out.println(maze.getRoom(0, 0).getSeat("right"));
-        System.out.println(maze.getRoom(1, 0).getSeat("right"));
+        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
+        System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
 
 
-        System.out.println(maze.getRoom(0, 0).getSeat("middle"));
-        System.out.println(maze.getRoom(1, 0).getSeat("middle"));
+        // block.seedRoom = maze.getRoom(block.seedRoomCoords[0], block.seedRoomCoords[1]);
+
+
+        // int[] lol = block.getAdjacentCoord(new int[] {block.seedRoomCoords[0], block.seedRoomCoords[1]}, block.placementSide);
+
+        // block.adjacentRoom = maze.getRoom(lol[0], lol[1]);
+        // System.out.println(block.adjacentRoom.getSeat(RoomSides.MIDDLE));
+
+        // block.deliverObjects();
+
+        // System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
+        // System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
+
+
+        // System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
+        // System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
 
         // System.out.println(block.getAdjacentCoord(block.seedRoomCoords, "right")[1]);
+
+
+
+
+
+        block.place(new int[] {0,0}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
 
         scene.setFill(Paint.valueOf("BLACK"));
         primaryStage.setTitle("Pather");

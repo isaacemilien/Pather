@@ -4,7 +4,7 @@ package pather;
  * 
  */
 
-public class Block {
+public class Block extends GameObject{
 
     // Please type the coordinates of the seed room: -- result below --
     int[] seedRoomCoords = new int[2];
@@ -15,23 +15,24 @@ public class Block {
     public Room adjacentRoom;
 
     public String rotation = "horizontal";
-    String placementSide = "right";
+    RoomSides placementSide = RoomSides.RIGHT;
 
     int[] adjacentRoomCoords = new int[2];
 
-    public Block(String id){ 
+    public Block(Maze maze, String id){ 
+        super(maze);
         this.id = id;
 
-        seedRoomCoords[0] = 0;
-        seedRoomCoords[1] = 0;
+        // seedRoomCoords[0] = 0;
+        // seedRoomCoords[1] = 0;
 
-        adjacentRoomCoords[0] = 0;
-        adjacentRoomCoords[1] = 0;
+        // adjacentRoomCoords[0] = 0;
+        // adjacentRoomCoords[1] = 0;
     }
 
     public boolean canPlace(String rotation){
         if(rotation.equals("horizontal")){
-            if(placementSide.equals("right")){
+            if(placementSide.equals(RoomSides.RIGHT)){
                 if(seedRoomCoords[0] + 1 == adjacentRoomCoords[0]){
                     return true;
                 }else{
@@ -45,7 +46,7 @@ public class Block {
                 }
             }
         }else{
-            if(placementSide.equals("up")){
+            if(placementSide.equals(RoomSides.TOP)){
                 if(seedRoomCoords[1] + 1 == adjacentRoomCoords[0]){
                     return true;
                 }else{
@@ -61,33 +62,21 @@ public class Block {
         }
     }
 
-    public int[] getAdjacentCoord(int[] seedCoord, String direction){
-        switch (direction) {
-            case "right":
-                
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
-        
-            case "left":
-                
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
-                
-        
-            case "up":
-                
-                return new int[] {seedCoord[0], seedCoord[1] + 1};
-                
-        
-            case "down":
-                
-                return new int[] {seedCoord[0], seedCoord[1] - 1};
-        
-            default:
-                return new int[] {666, 666};
-        }
-    }
-
     public void deliverObjects(){
         seedRoom.setSeat(placementSide, id);
         adjacentRoom.setSeat(placementSide, id);
+    }
+
+
+
+    // Place block based on given coordinate and position
+    public void place(int[] seedCoord, BlockRotations blockRotation, RoomSides roomSide){
+        seedRoom = maze.getRoom(seedCoord[0], seedCoord[1]);
+        adjacentRoomCoords = getAdjacentCoord(seedCoord, roomSide);
+        adjacentRoom = maze.getRoom(adjacentRoomCoords[0], adjacentRoomCoords[1]);
+
+        if(canPlace(rotation)){
+            deliverObjects();
+        }
     }
 }

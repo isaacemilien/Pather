@@ -2,30 +2,26 @@ package pather;
 
 import java.util.HashMap;
 
-public class Player {
+public class Player extends GameObject {
     int[] position = new int[2];
     int[] nextPosition = new int[2];
 
 
-    public HashMap<MovementKeys, String> directionValues = new HashMap<>();
-    public String seatPosition = "";
+    public HashMap<MovementKeys, RoomSides> directionValues = new HashMap<>();
+    public RoomSides seatPosition;
 
 
     public Room room;
     public Room adjacentRoom;
 
-    public Maze maze;
+    // public Maze maze;
 
     public Player(Maze maze){
+        super(maze);
         position[0] = 0;
         position[1] = 0;
-        // nextPosition[0] = 3;
-        // nextPosition[1] = 2;
 
-
-        this.maze = maze;
-
-        maze.getRoom(position[0], position[1]).seats.put("middle", "This is the fucking player starting off :D");
+        maze.getRoom(position[0], position[1]).seats.put(RoomSides.MIDDLE, "This is the fucking player starting off :D");
 
         pairDirectionValues();
     }
@@ -74,47 +70,19 @@ public class Player {
         return true;
     }
 
-    // Transpose coordinates of current position to new position based on given coordinates
-    public int[] getAdjacentCoord(int[] seedCoord, String direction){
-        System.out.println(direction);
-
-        switch (direction) {
-            case "right":
-                
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
-        
-            case "left":
-                
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
-                
-        
-            case "up":
-                
-                return new int[] {seedCoord[0], seedCoord[1] + 1};
-                
-        
-            case "down":
-                
-                return new int[] {seedCoord[0], seedCoord[1] - 1};
-        
-            default:
-                return new int[] {666, 666};
-        }
-    }
-
     // leave current room 
     public void leaveRoom(Room currentRoom){
         // Change player coordinates
         position = nextPosition;
 
         // Set current room middle place to empty
-        currentRoom.seats.put("middle", null);
+        currentRoom.seats.put(RoomSides.MIDDLE, null);
 
         System.out.println("Left current room");
     }
 
     public void enterRoom(Room newRoom){
-        newRoom.setSeat("middle", "This is the fucking player");
+        newRoom.setSeat(RoomSides.MIDDLE, "This is the fucking player");
 
         System.out.println("Entered new room");
     }
@@ -133,10 +101,10 @@ public class Player {
 
 
     void pairDirectionValues(){
-        directionValues.put(MovementKeys.UP, "up");
-        directionValues.put(MovementKeys.LEFT, "left");
-        directionValues.put(MovementKeys.DOWN, "down");
-        directionValues.put(MovementKeys.RIGHT, "right");
+        directionValues.put(MovementKeys.UP, RoomSides.TOP);
+        directionValues.put(MovementKeys.LEFT, RoomSides.LEFT);
+        directionValues.put(MovementKeys.DOWN, RoomSides.BOTTOM);
+        directionValues.put(MovementKeys.RIGHT, RoomSides.RIGHT);
     }
 
 

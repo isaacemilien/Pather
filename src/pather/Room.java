@@ -9,28 +9,28 @@ import java.util.HashMap; // import the HashMap class
 
 public class Room {
     // Fields
-    HashMap<String, String> seats = new HashMap<String, String>();
+    HashMap<RoomSides, String> seats = new HashMap<RoomSides, String>();
 
     // Constructors
 
     public Room(){
-        // Fill seats
-        seats.put("middle", null);
-        seats.put("up", null);
-        seats.put("down", null);
-        seats.put("left", null);
-        seats.put("right", null);
+        // Fill sides
+        seats.put(RoomSides.MIDDLE, null);
+        seats.put(RoomSides.TOP, null);
+        seats.put(RoomSides.BOTTOM, null);
+        seats.put(RoomSides.LEFT, null);
+        seats.put(RoomSides.RIGHT, null);
     }
 
     // Methods
     
     // Change what value seat holds
-    public void setSeat(String seatPosition, String seatValue){
-        seats.put(seatPosition, seatValue);
+    public void setSeat(RoomSides roomSides, String seatValue){
+        seats.put(roomSides, seatValue);
     }
 
     // Return value held in seat
-    public String getSeat(String seatPosition){
-        return seats.get(seatPosition);
+    public String getSeat(RoomSides roomSides){
+        return seats.get(roomSides);
     }
 }
