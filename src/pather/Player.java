@@ -1,6 +1,7 @@
 package pather;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Player extends GameObject {
     int[] position = new int[2];
@@ -21,7 +22,7 @@ public class Player extends GameObject {
         position[0] = 0;
         position[1] = 0;
 
-        maze.getRoom(position[0], position[1]).seats.put(RoomSides.MIDDLE, "This is the fucking player starting off :D");
+        maze.getRoom(position[0], position[1]).seats.put(RoomSides.MIDDLE, this);
 
         pairDirectionValues();
     }
@@ -56,7 +57,10 @@ public class Player extends GameObject {
 
     // check if there is a block on a given seat
     public boolean isBlock(Room room){
-        if(room.getSeat(seatPosition).equals(null)){
+
+        // System.out.println(room.getSeat(seatPosition));
+
+        if(Objects.isNull(room.getSeat(RoomSides.RIGHT))){
 
             System.out.println("Not a block in that direction");
 
@@ -82,7 +86,7 @@ public class Player extends GameObject {
     }
 
     public void enterRoom(Room newRoom){
-        newRoom.setSeat(RoomSides.MIDDLE, "This is the fucking player");
+        newRoom.setSeat(RoomSides.MIDDLE, this);
 
         System.out.println("Entered new room");
     }

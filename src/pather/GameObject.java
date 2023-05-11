@@ -1,11 +1,26 @@
 package pather;
+import java.util.HashMap;
+
 
 public class GameObject {
     
     Maze maze;
 
+    public HashMap<RoomSides, RoomSides> adjacentSides = new HashMap<>();
+
+
     public GameObject(Maze maze){
         this.maze = maze;
+
+        pairAdjacentSideValues();
+    }
+
+
+    void pairAdjacentSideValues(){
+        adjacentSides.put(RoomSides.BOTTOM, RoomSides.TOP);
+        adjacentSides.put(RoomSides.RIGHT, RoomSides.LEFT);
+        adjacentSides.put(RoomSides.TOP, RoomSides.BOTTOM);
+        adjacentSides.put(RoomSides.LEFT, RoomSides.RIGHT);
     }
 
 

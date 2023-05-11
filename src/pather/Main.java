@@ -35,6 +35,42 @@ public class Main extends Application {
 
     Player player = new Player(maze);
 
+
+
+
+    // Sqaure
+    Sprite square = new Sprite(0, 0, 60, 60, Color.web("e3dbdbff"));
+    Sprite square2 = new Sprite(90, 0, 60, 60, Color.web("e3dbdbff"));
+    Sprite square3 = new Sprite(180, 0, 60, 60, Color.web("e3dbdbff"));
+    Sprite square4 = new Sprite(270, 0, 60, 60, Color.web("e3dbdbff"));
+    Sprite square5 = new Sprite(360, 0, 60, 60, Color.web("e3dbdbff"));
+
+    Sprite[] squares = new Sprite[25];
+ 
+    public void lol(int xCount, int yCount, double xOrigin, double yOrigin, double height, double width, double squareGap ){
+
+
+        double x = xOrigin; 
+        double y = yOrigin;
+
+
+        int arrayCount = 0;
+
+        for (int i = 0; i < yCount; i++) {
+            for (int j = 0; j < xCount; j++) {
+                squares[arrayCount] = new Sprite(x, y, height, width, Color.web("e3dbdbff"));
+                x += width + squareGap;
+
+                System.out.println(j);
+                arrayCount++;
+            }
+            x = xOrigin;
+            y += height + squareGap;
+        }
+    }
+
+
+
     // Methods
 
     // Capture input
@@ -48,8 +84,6 @@ public class Main extends Application {
                     System.out.println("W pressed");
                     movementKey = MovementKeys.UP;
 
-                    inputPressed = true;
-
                     break;
 
                 // Left
@@ -57,16 +91,12 @@ public class Main extends Application {
                     System.out.println("A pressed");
                     movementKey = MovementKeys.LEFT;
 
-                    inputPressed = true;
-
                     break;
 
                 // Down
                 case S:
                     System.out.println("S pressed");
                     movementKey = MovementKeys.DOWN;
-
-                    inputPressed = true;
 
                     player.move(movementKey);
                     
@@ -79,8 +109,6 @@ public class Main extends Application {
                 case D:
                     System.out.println("D pressed");
                     movementKey = MovementKeys.RIGHT;
-
-                    inputPressed = true;
 
                     player.move(movementKey);
                     
@@ -101,15 +129,24 @@ public class Main extends Application {
 
     private void update(){
 
-        // System.out.println(inputPressed);
-
-        if(inputPressed){
-        }
     }
 
     private void initialize(){
         // Set window size
         root.setPrefSize(HEIGHT, WIDTH);
+
+
+        
+
+        // Draw square
+        lol(5, 5, 20, 20, 60, 60, 40);
+
+        System.out.println("slkdjflskfj");
+
+        root.getChildren().addAll(squares);
+
+        
+
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
@@ -138,49 +175,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         initialize();
 
-        // maze.setRoom(1, 1, room);
-        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
+        block.place(new int[] {0,0}, new int[] {0,1}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
 
-        maze.board[0][0].setSeat(RoomSides.MIDDLE, "fuck");
-        maze.board[1][0].setSeat(RoomSides.MIDDLE, "im to the right lol");
-
-        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
-
-        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
-        System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
-
-        block.place(new int[] {0,0}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
-
-        System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
-        System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
-
-
-        // block.seedRoom = maze.getRoom(block.seedRoomCoords[0], block.seedRoomCoords[1]);
-
-
-        // int[] lol = block.getAdjacentCoord(new int[] {block.seedRoomCoords[0], block.seedRoomCoords[1]}, block.placementSide);
-
-        // block.adjacentRoom = maze.getRoom(lol[0], lol[1]);
-        // System.out.println(block.adjacentRoom.getSeat(RoomSides.MIDDLE));
-
-        // block.deliverObjects();
-
-        // System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.RIGHT));
-        // System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.RIGHT));
-
-
-        // System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
-        // System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
-
-        // System.out.println(block.getAdjacentCoord(block.seedRoomCoords, "right")[1]);
+        System.out.println("ME LIKEY");
+        // maze.getRoom(0, 1).setSeat(RoomSides.RIGHT, block);
+        System.out.println(maze.getRoom(0, 1).getSeat(RoomSides.LEFT));
 
 
 
 
 
-        block.place(new int[] {0,0}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
 
-        scene.setFill(Paint.valueOf("BLACK"));
+
+
+        scene.setFill(Paint.valueOf("191919ff"));
         primaryStage.setTitle("Pather");
         primaryStage.setScene(scene);
         primaryStage.show();

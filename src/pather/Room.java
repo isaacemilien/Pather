@@ -9,7 +9,7 @@ import java.util.HashMap; // import the HashMap class
 
 public class Room {
     // Fields
-    HashMap<RoomSides, String> seats = new HashMap<RoomSides, String>();
+    HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
 
     // Constructors
 
@@ -25,12 +25,12 @@ public class Room {
     // Methods
     
     // Change what value seat holds
-    public void setSeat(RoomSides roomSides, String seatValue){
-        seats.put(roomSides, seatValue);
+    public void setSeat(RoomSides roomSides, GameObject gameObject){
+        seats.put(roomSides, gameObject);
     }
 
     // Return value held in seat
-    public String getSeat(RoomSides roomSides){
+    public GameObject getSeat(RoomSides roomSides){
         return seats.get(roomSides);
     }
 }
