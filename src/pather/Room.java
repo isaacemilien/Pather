@@ -11,6 +11,8 @@ public class Room {
     // Fields
     HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
 
+    Sprite roomSprite;
+
     // Constructors
 
     public Room(){

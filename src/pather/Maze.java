@@ -1,5 +1,7 @@
 package pather;
 
+import javafx.scene.paint.Color;
+
 
 /**
 * Manages collection of cells making up the ingame maze
@@ -21,6 +23,7 @@ public class Maze {
         board = new Room[width][height];
 
         populateRooms();
+        populateRoomSprites(51, 51, 60, 60, 50, "e3dbdbff");
     }
 
     // Methods
@@ -49,6 +52,44 @@ public class Maze {
                 board[i][j] = new Room();
             }
         }
+    }
+
+    public void populateRoomSprites(double xOrigin, double yOrigin, double height, double width, double squareGap, String color){
+
+
+        double x = xOrigin; 
+        double y = yOrigin;
+
+
+        int arrayCount = 0;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                
+
+                board[i][j].roomSprite = new Sprite(x, y, height, width, Color.web(color));
+                x += width + squareGap;
+
+                System.out.println(j);
+                arrayCount++;
+            }
+            x = xOrigin;
+            y += height + squareGap;
+        }
+    }
+
+    public Sprite[] getRoomSprites(){
+        Sprite[] roomSprites = new Sprite[25];
+        int roomCount = 0;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                roomSprites[roomCount] = board[i][j].roomSprite;
+                roomCount++;
+            }
+        }
+
+        return roomSprites;
     }
 
 }

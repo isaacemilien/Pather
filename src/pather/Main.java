@@ -139,11 +139,12 @@ public class Main extends Application {
         
 
         // Draw square
-        lol(5, 5, 20, 20, 60, 60, 40);
+        // lol(5, 5, 20, 20, 60, 60, 40);
 
-        System.out.println("slkdjflskfj");
+        // System.out.println("slkdjflskfj");
 
-        root.getChildren().addAll(squares);
+        root.getChildren().addAll(maze.getRoomSprites());
+        // System.out.println(maze.getRoomSprites()[0]);
 
         
 
