@@ -5,9 +5,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 import javafx.animation.AnimationTimer;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.*;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -38,38 +40,13 @@ public class Main extends Application {
 
 
 
-    // Sqaure
-    Sprite square = new Sprite(0, 0, 60, 60, Color.web("e3dbdbff"));
-    Sprite square2 = new Sprite(90, 0, 60, 60, Color.web("e3dbdbff"));
-    Sprite square3 = new Sprite(180, 0, 60, 60, Color.web("e3dbdbff"));
-    Sprite square4 = new Sprite(270, 0, 60, 60, Color.web("e3dbdbff"));
-    Sprite square5 = new Sprite(360, 0, 60, 60, Color.web("e3dbdbff"));
+    // Circle
 
-    Sprite[] squares = new Sprite[25];
+    // midpoint is half the size of square size: 60/2 : 30
+
  
-    public void lol(int xCount, int yCount, double xOrigin, double yOrigin, double height, double width, double squareGap ){
 
-
-        double x = xOrigin; 
-        double y = yOrigin;
-
-
-        int arrayCount = 0;
-
-        for (int i = 0; i < yCount; i++) {
-            for (int j = 0; j < xCount; j++) {
-                squares[arrayCount] = new Sprite(x, y, height, width, Color.web("e3dbdbff"));
-                x += width + squareGap;
-
-                System.out.println(j);
-                arrayCount++;
-            }
-            x = xOrigin;
-            y += height + squareGap;
-        }
-    }
-
-
+    // Rectangle rect = new Rectangle(10, 10, 400, 400);
 
     // Methods
 
@@ -84,12 +61,17 @@ public class Main extends Application {
                     System.out.println("W pressed");
                     movementKey = MovementKeys.UP;
 
+                    player.playerModel.setCenterY(player.playerModel.getCenterY()-110);
+
                     break;
 
                 // Left
                 case A:
                     System.out.println("A pressed");
                     movementKey = MovementKeys.LEFT;
+
+                    player.playerModel.setCenterX(player.playerModel.getCenterX()-110);
+
 
                     break;
 
@@ -99,9 +81,8 @@ public class Main extends Application {
                     movementKey = MovementKeys.DOWN;
 
                     player.move(movementKey);
-                    
-                    System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
-                    System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
+                    player.playerModel.setCenterY(player.playerModel.getCenterY()+110);
+
 
                     break;
 
@@ -111,9 +92,9 @@ public class Main extends Application {
                     movementKey = MovementKeys.RIGHT;
 
                     player.move(movementKey);
+                    player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
+
                     
-                    System.out.println(maze.getRoom(0, 0).getSeat(RoomSides.MIDDLE));
-                    System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.MIDDLE));
 
 
                     break;
@@ -128,25 +109,18 @@ public class Main extends Application {
     }
 
     private void update(){
-
     }
 
     private void initialize(){
         // Set window size
         root.setPrefSize(HEIGHT, WIDTH);
 
-
-        
-
-        // Draw square
-        // lol(5, 5, 20, 20, 60, 60, 40);
-
-        // System.out.println("slkdjflskfj");
-
         root.getChildren().addAll(maze.getRoomSprites());
         // System.out.println(maze.getRoomSprites()[0]);
 
+        root.getChildren().add(player.playerModel);
         
+
 
 
         // Game loop

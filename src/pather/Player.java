@@ -2,6 +2,8 @@ package pather;
 
 import java.util.HashMap;
 import java.util.Objects;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 
 public class Player extends GameObject {
     int[] position = new int[2];
@@ -15,6 +17,14 @@ public class Player extends GameObject {
     public Room room;
     public Room adjacentRoom;
 
+
+
+    // Player model
+    public Circle playerModel = new Circle(81, 81, 28);
+
+
+
+
     // public Maze maze;
 
     public Player(Maze maze){
@@ -25,6 +35,10 @@ public class Player extends GameObject {
         maze.getRoom(position[0], position[1]).seats.put(RoomSides.MIDDLE, this);
 
         pairDirectionValues();
+
+
+        playerModel.setFill(Color.web("5599ffff"));
+
     }
 
 
@@ -89,6 +103,9 @@ public class Player extends GameObject {
         newRoom.setSeat(RoomSides.MIDDLE, this);
 
         System.out.println("Entered new room");
+
+
+        // playerModel.setCenterX(playerModel.getCenterX()+110);
     }
 
     public void move(MovementKeys movementKey){
