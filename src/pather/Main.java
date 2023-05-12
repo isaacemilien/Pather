@@ -37,16 +37,19 @@ public class Main extends Application {
 
     Player player = new Player(maze);
 
+    // Block visualization
+
+    Sprite blockSprite = new Sprite(111,66,50,30, Color.web("ccccccff"));
 
 
 
-    // Circle
 
-    // midpoint is half the size of square size: 60/2 : 30
 
- 
+    // get surrounding coords
+    
 
-    // Rectangle rect = new Rectangle(10, 10, 400, 400);
+
+
 
     // Methods
 
@@ -119,6 +122,8 @@ public class Main extends Application {
         // System.out.println(maze.getRoomSprites()[0]);
 
         root.getChildren().add(player.playerModel);
+
+        root.getChildren().add(blockSprite);
         
 
 
