@@ -1,6 +1,8 @@
 package pather;
 
 import javafx.scene.paint.Color;
+import java.util.*;  
+
 
 
 /**
@@ -16,7 +18,7 @@ public class Maze {
 
 
 
-
+    NodeHahaha[][] nodeGrid;
 
     // Path stuff
     int[] startPos = {0,0};
@@ -35,13 +37,18 @@ public class Maze {
     // right
     int[] rightCoord = {startPos[0] + 1, startPos[1]};
 
-    NodeHahaha start = new NodeHahaha(0, 0);
-    NodeHahaha end = new NodeHahaha(5, 0);
+    // NodeHahaha start = new NodeHahaha(0, 0);
+    // NodeHahaha end = new NodeHahaha(5, 0);
 
-    NodeHahaha top = new NodeHahaha(start.x, start.y + 1);
-    NodeHahaha bottom = new NodeHahaha(start.x, start.y - 1);
-    NodeHahaha left = new NodeHahaha(start.x - 1, start.y );
-    NodeHahaha right = new NodeHahaha(start.x + 1, start.y);
+    // NodeHahaha top = new NodeHahaha(start.x, start.y + 1);
+    // NodeHahaha bottom = new NodeHahaha(start.x, start.y - 1);
+    // NodeHahaha left = new NodeHahaha(start.x - 1, start.y );
+    // NodeHahaha right = new NodeHahaha(start.x + 1, start.y);
+
+
+    List<NodeHahaha> openSet=new ArrayList<NodeHahaha>();  
+    List<NodeHahaha> closedSet=new ArrayList<NodeHahaha>();  
+
 
     // distance from the start
     // count how many x to start
@@ -80,6 +87,7 @@ public class Maze {
         width = theWidth;
         height = theHeight;
         board = new Room[width][height];
+        nodeGrid = new NodeHahaha[width][height];
 
         populateRooms();
         populateRoomSprites(51, 51, 60, 60, 50, "e3dbdbff");
@@ -87,14 +95,97 @@ public class Maze {
 
 
 
-        right.gCost = distance(new int[] {start.x, start.y}, new int[] {right.x, right.y});
-        right.hCost = distance(new int[] {end.x, end.y}, new int[] {right.x, right.y});
-        bottom.gCost = distance(new int[] {start.x, start.y}, new int[] {bottom.x, bottom.y});
-        bottom.hCost = distance(new int[] {end.x, end.y}, new int[] {bottom.x, bottom.y});
+        // right.gCost = distance(new int[] {start.x, start.y}, new int[] {right.x, right.y});
+        // right.hCost = distance(new int[] {end.x, end.y}, new int[] {right.x, right.y});
+        // bottom.gCost = distance(new int[] {start.x, start.y}, new int[] {bottom.x, bottom.y});
+        // bottom.hCost = distance(new int[] {end.x, end.y}, new int[] {bottom.x, bottom.y});
+
+        
+
+        // System.out.println(distance(new int[]{right.x, right.y}, new int[]{end.x, end.y}));
+
+        NodeHahaha start = nodeGrid[0][0];
+        NodeHahaha end = nodeGrid[4][0];
+
+        openSet.add(start);
+
+        NodeHahaha currentNode;
+        currentNode = start;
 
 
-        System.out.println(distance(new int[]{right.x, right.y}, new int[]{end.x, end.y}));
+        System.out.println(end.x);
+        // NodeHahaha currentNode = start;
+
+        // while (true) {
+        //     // set current node
+        //     // NodeHahaha current =
+
+        //     // get node from open set
+        //     openSet.get(0);
+
+        //     // Find node with lowest f cost in open set
+        //     // go through each node in open set
+        //     // get f cost
+        //     // check if f cost lower than last f cost
+        //     // save as current node;
+
+
+        //     int tempF = 1000;
+            
+        //     for (int i = 0; i < openSet.size(); i++) {
+
+        //         if(openSet.get(i).fCost < tempF){
+        //             currentNode = openSet.get(i);
+        //             tempF = currentNode.fCost;
+        //         }
+                
+        //     }
+
+        //     // remove current from open list
+        //     openSet.remove(currentNode);
+
+        //     closedSet.add(currentNode);
+
+        //     if(currentNode.x == end.x && currentNode.y == end.y){
+        //         System.out.println("end found");
+        //         return;
+        //     }
+
+        //     // get each neighbor of the current node
+
+
+        //     return;
+        // }
+
+        // getAdjacentNodes();
     }
+
+    public void getAdjacentNodes(NodeHahaha stemNode){
+
+        // up down left right
+
+        NodeHahaha[] temp = new NodeHahaha[4];
+
+        if(stemNode.y + 1 < 5){
+            temp[0] = new NodeHahaha(stemNode.x, stemNode.y + 1);
+        }
+        if(stemNode.y + 1 > -1){
+            temp[1] = new NodeHahaha(stemNode.x, stemNode.y - 1);
+        }
+        if(stemNode.y + 1 < 5){
+            temp[0] = new NodeHahaha(stemNode.x, stemNode.y + 1);
+        }
+        if(stemNode.y + 1 > -1){
+            temp[1] = new NodeHahaha(stemNode.x, stemNode.y - 1);
+        }
+        temp[1] = new NodeHahaha(stemNode.x, stemNode.y - 1);
+        temp[2] = new NodeHahaha(stemNode.x - 1, stemNode.y);
+        temp[3] = new NodeHahaha(stemNode.x + 1, stemNode.y);
+    }
+
+
+
+
 
     // Methods
     
@@ -116,9 +207,17 @@ public class Maze {
         }
     }
 
+
+    
+
     void populateRooms(){
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
+
+                nodeGrid[i][j] = new NodeHahaha(i, j);
+
+
+
                 board[i][j] = new Room();
             }
         }
