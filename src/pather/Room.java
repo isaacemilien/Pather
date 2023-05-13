@@ -8,12 +8,12 @@ import java.util.HashMap; // import the HashMap class
  */
 
 public class Room {
-    // Fields
+    // FIELDS
     HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
 
     Sprite roomSprite;
 
-    // Constructors
+    // CONSTRUCTORS
 
     public Room(){
         // Fill sides
@@ -24,7 +24,7 @@ public class Room {
         seats.put(RoomSides.RIGHT, null);
     }
 
-    // Methods
+    // METHODS
     
     // Change what value seat holds
     public void setSeat(RoomSides roomSides, GameObject gameObject){

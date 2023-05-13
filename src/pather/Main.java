@@ -5,24 +5,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 import javafx.animation.AnimationTimer;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
-
-import java.util.HashMap;
-import java.util.Random;
 
 public class Main extends Application {
 
-    // Fields
-
+    //FIELDS 
     // Window parameters
     final int WIDTH = 600, HEIGHT = WIDTH;
     private Pane root = new Pane();
     Scene scene = new Scene(root);
-
 
     Maze maze = new Maze(5,5);
     Room room = new Room();
@@ -34,24 +26,13 @@ public class Main extends Application {
 
     boolean inputPressed = false;
 
-
     Player player = new Player(maze);
 
     // Block visualization
 
     Sprite blockSprite = new Sprite(111,66,50,30, Color.web("ccccccff"));
 
-
-
-
-
-    // get surrounding coords
-    
-
-
-
-
-    // Methods
+    // METHODS
 
     // Capture input
     void processInput(){
@@ -97,9 +78,6 @@ public class Main extends Application {
                     player.move(movementKey);
                     player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
 
-                    
-
-
                     break;
 
                 // Rotate
@@ -136,14 +114,10 @@ public class Main extends Application {
             public void handle(long now){
                 // Cap frames
                 if (now - lastUpdate >= 64_000_000) {
-                    
-
                     processInput();
                     update();
 
-
                     lastUpdate = now;
-                    
                 }
             }
         };
@@ -158,22 +132,13 @@ public class Main extends Application {
         block.place(new int[] {0,0}, new int[] {0,1}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
 
         System.out.println("ME LIKEY");
-        // maze.getRoom(0, 1).setSeat(RoomSides.RIGHT, block);
         System.out.println(maze.getRoom(0, 1).getSeat(RoomSides.LEFT));
-
-
-
-
-
-
-
 
         scene.setFill(Paint.valueOf("191919ff"));
         primaryStage.setTitle("Pather");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

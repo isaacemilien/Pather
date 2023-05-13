@@ -3,18 +3,13 @@ package pather;
 import java.util.Arrays;
 import java.util.Collections;
 
-
-
 /**
- * 
+ *  Object representing path between two rooms
  */
 
 public class Block extends GameObject{
 
-
-
-
-    // Please type the coordinates of the seed room: -- result below --
+    // FIELDS
     int[] seedRoomCoords = new int[2];
 
     String id = "";
@@ -22,24 +17,19 @@ public class Block extends GameObject{
     public Room seedRoom;
     public Room adjacentRoom;
 
-    // public BlockRotations rotation = ;
     RoomSides placementSide = RoomSides.RIGHT;
 
     int[] adjacentRoomCoords = new int[2];
 
+    // CONSTRUCTORS
     public Block(Maze maze, String id){ 
         super(maze);
         this.id = id;
     }
 
-    // When can a block be placed
-    // not a block on it already 
-    // when there are two rooms next to each other
-        // first room
-        // second room
-        // add one to x position of first room
-
-
+    // METHODS
+    
+    // Check whether two positions next each other
     public boolean isCoordinateAdjacent(int[] firstCoord, int[] secondCoord){
         
         Integer transpositionValue = 1;
@@ -65,63 +55,19 @@ public class Block extends GameObject{
         return false;
     }
 
-    // when their right and left or top and bottom sides are free
-
-
-    // public boolean canPlace(BlockRotations blockRotation){
-    //     // Check which way block is oriented
-    //     if(blockRotation.equals(BlockRotations.HORIZONTAL)){
-    //         // Check which placement side block is going to be on
-    //         if(placementSide.equals(RoomSides.RIGHT)){
-    //             if(seedRoomCoords[0] + 1 == adjacentRoomCoords[0]){
-    //                 return true;
-    //             }else{
-    //                 return false;
-    //             }
-    //         }else{
-    //             if(seedRoomCoords[0] - 1 == adjacentRoomCoords[0]){
-    //                 return true;
-    //             }else{
-    //                 return false;
-    //             }
-    //         }
-    //     }else{
-    //         if(placementSide.equals(RoomSides.TOP)){
-    //             if(seedRoomCoords[1] + 1 == adjacentRoomCoords[0]){
-    //                 return true;
-    //             }else{
-    //                 return false;
-    //             }
-    //         }else{
-    //             if(seedRoomCoords[1] - 1 == adjacentRoomCoords[0]){
-    //                 return true;
-    //             }else{
-    //                 return false;
-    //             }
-    //         }
-    //     }
-    // }
-
+    // Set object in two rooms position  
     public void deliverObjects(int[] seedCoord, int[] adjacentCoord, RoomSides roomSide){
-        // seedRoom.setSeat(roomSide, this);
-        // adjacentRoom.setSeat(adjacentSides.get(roomSide), this);
-
+        // First room
         maze.getRoom(seedCoord[0],seedCoord[1]).setSeat(roomSide, this);
+
+        // Second room
         maze.getRoom(adjacentCoord[0],adjacentCoord[1]).setSeat(adjacentSides.get(roomSide), this);
-
-
-        // System.
     }
 
-
-
-    // Place block based on given coordinate and position
+    // Add block between two rooms
     public void place(int[] seedCoord, int[] recipientCoord, BlockRotations blockRotation, RoomSides roomSide){
-        
-        // seedRoom = maze.getRoom(seedCoord[0], seedCoord[1]);
-        // adjacentRoomCoords = getAdjacentCoord(seedCoord, roomSide);
-        // adjacentRoom = maze.getRoom(adjacentRoomCoords[0], adjacentRoomCoords[1]);
 
+        // Check valid to place room
         if(isCoordinateAdjacent(seedCoord, recipientCoord)){
             deliverObjects(seedCoord, recipientCoord, roomSide);
         }
