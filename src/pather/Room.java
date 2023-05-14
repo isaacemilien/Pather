@@ -1,6 +1,7 @@
 package pather;
 
 import java.util.HashMap; // import the HashMap class
+import java.util.ArrayList; // import the ArrayList class
 
 
 /** 
@@ -12,6 +13,13 @@ public class Room {
     HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
 
     Sprite roomSprite;
+
+    // Path finding information
+    int x, y;
+    int gCost, hCost, fCost;
+    boolean pathable;
+    Room previousRoom;
+    ArrayList<Room> neighbours = new ArrayList<Room>();
 
     // CONSTRUCTORS
 
