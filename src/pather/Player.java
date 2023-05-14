@@ -5,28 +5,26 @@ import java.util.Objects;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
+/* 
+ * Game object player controls
+ */
+
 public class Player extends GameObject {
+
+    // FIELDS
     int[] position = new int[2];
     int[] nextPosition = new int[2];
-
 
     public HashMap<MovementKeys, RoomSides> directionValues = new HashMap<>();
     public RoomSides seatPosition;
 
-
     public Room room;
     public Room adjacentRoom;
-
-
 
     // Player model
     public Circle playerModel = new Circle(81, 81, 28);
 
-
-
-
-    // public Maze maze;
-
+    // CONSTRUCTORS
     public Player(Maze maze){
         super(maze);
         position[0] = 0;
@@ -36,30 +34,20 @@ public class Player extends GameObject {
 
         pairDirectionValues();
 
-
         playerModel.setFill(Color.web("5599ffff"));
-
     }
 
-
+    // METHODS
 
     // Check if next coordinates are on the grid
     public boolean nextCoordExist(int gridX, int gridY, int nextX, int nextY){
-        System.out.println(gridX);
-        System.out.println(gridY);
-        System.out.println(nextX);
-        System.out.println(nextY);
-
-
         if(nextX < 0  || nextX > gridX || nextY < 0 || nextY > gridY){
-
             System.out.println("Position is out of bounds");
 
             return false;
         }
 
         System.out.println("Position exists on grid");
-
 
         return true;
     }
@@ -71,19 +59,12 @@ public class Player extends GameObject {
 
     // check if there is a block on a given seat
     public boolean isBlock(Room room){
-
-        // System.out.println(room.getSeat(seatPosition));
-
         if(Objects.isNull(room.getSeat(RoomSides.RIGHT))){
-
             System.out.println("Not a block in that direction");
-
 
             return false;
         }
-
         System.out.println("There is a block leading in the direction LOLLLL");
-
 
         return true;
     }
@@ -103,9 +84,6 @@ public class Player extends GameObject {
         newRoom.setSeat(RoomSides.MIDDLE, this);
 
         System.out.println("Entered new room");
-
-
-        // playerModel.setCenterX(playerModel.getCenterX()+110);
     }
 
     public void move(MovementKeys movementKey){
@@ -120,15 +98,10 @@ public class Player extends GameObject {
         }
     }
 
-
     void pairDirectionValues(){
         directionValues.put(MovementKeys.UP, RoomSides.TOP);
         directionValues.put(MovementKeys.LEFT, RoomSides.LEFT);
         directionValues.put(MovementKeys.DOWN, RoomSides.BOTTOM);
         directionValues.put(MovementKeys.RIGHT, RoomSides.RIGHT);
     }
-
-
-
-    
 }

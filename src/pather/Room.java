@@ -1,6 +1,7 @@
 package pather;
 
 import java.util.HashMap; // import the HashMap class
+import java.util.ArrayList; // import the ArrayList class
 
 
 /** 
@@ -8,12 +9,19 @@ import java.util.HashMap; // import the HashMap class
  */
 
 public class Room {
-    // Fields
+    // FIELDS
     HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
 
     Sprite roomSprite;
 
-    // Constructors
+    // Path finding information
+    int x, y;
+    int gCost, hCost, fCost;
+    boolean pathable;
+    Room previousRoom;
+    ArrayList<Room> neighbours = new ArrayList<Room>();
+
+    // CONSTRUCTORS
 
     public Room(){
         // Fill sides
@@ -24,7 +32,7 @@ public class Room {
         seats.put(RoomSides.RIGHT, null);
     }
 
-    // Methods
+    // METHODS
     
     // Change what value seat holds
     public void setSeat(RoomSides roomSides, GameObject gameObject){
