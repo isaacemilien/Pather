@@ -40,6 +40,11 @@ public class Maze {
         startRoom = this.getRoom(0, 0);
         endRoom = this.getRoom(0, 4);
 
+        // Set given room to being unpathable
+        getRoom(0, 2).notPathable = true;
+        getRoom(1, 3).notPathable = true;
+        getRoom(0, 3).notPathable = true;
+
         // Add start node open set
         openSet.add(startRoom);
 
@@ -84,6 +89,13 @@ public class Maze {
 
                 // Save reference of neighbour
                 Room neighbour = currentRoom.neighbours.get(i);
+
+                // Check if non pathable neighbours appears
+                if(neighbour.notPathable){
+                    System.out.println("this neighbour is not pathable");
+                    continue;
+                }
+                    
 
                 // Skip neighbour if in closed set
                 if(closedSet.contains(neighbour))
@@ -196,13 +208,19 @@ public class Maze {
         ArrayList<Room> neighbours = new ArrayList<>();
 
         // Up room
-        neighbours.add(this.getRoom(x, y + 1));
+        if(this.getRoom(x, y + 1) != null)
+            neighbours.add(this.getRoom(x, y + 1));
         // Down room
-        neighbours.add(this.getRoom(x, y - 1));
+        if(this.getRoom(x, y - 1) != null)
+            neighbours.add(this.getRoom(x, y - 1));
         // Right room
-        neighbours.add(this.getRoom(x + 1, y));
+        if(this.getRoom(x + 1, y) != null)
+            neighbours.add(this.getRoom(x + 1, y));
         // Left room
-        neighbours.add(this.getRoom(x - 1, y));
+        if(this.getRoom(x - 1, y) != null)
+            neighbours.add(this.getRoom(x - 1, y));
+
+
 
         // Remove null neighbours
         for (int i = 0; i < neighbours.size(); i++) {

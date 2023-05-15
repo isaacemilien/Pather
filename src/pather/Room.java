@@ -17,7 +17,7 @@ public class Room {
     // Path finding information
     int x, y;
     int gCost, hCost, fCost;
-    boolean pathable;
+    boolean notPathable;
     Room previousRoom;
     ArrayList<Room> neighbours = new ArrayList<Room>();
 
