@@ -4,8 +4,6 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList; // import the ArrayList class
 import javafx.scene.paint.Color;
 
-
-
 /**
 * Manages collection of cells making up the ingame maze
 */

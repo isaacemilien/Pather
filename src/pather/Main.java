@@ -29,8 +29,10 @@ public class Main extends Application {
     Player player = new Player(maze);
 
     // Block visualization
-
     Sprite blockSprite = new Sprite(111,66,50,30, Color.web("ccccccff"));
+
+    // Enemy
+    Enemy enemy = new Enemy(maze);
 
     // METHODS
 
@@ -97,14 +99,17 @@ public class Main extends Application {
         root.setPrefSize(HEIGHT, WIDTH);
 
         root.getChildren().addAll(maze.getRoomSprites());
-        // System.out.println(maze.getRoomSprites()[0]);
 
         root.getChildren().add(player.playerModel);
 
         root.getChildren().add(blockSprite);
+
+        // Add enemy to root
+        root.getChildren().add(enemy.enemyModel);
+
+        enemy.move(maze.getRoom(3, 4), maze.getRoom(2, 4));
         
-
-
+        System.out.println(maze.getRoom(2, 4).seats.get(RoomSides.MIDDLE));
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
@@ -128,11 +133,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         initialize();
-
+    
         block.place(new int[] {0,0}, new int[] {0,1}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
-
-        System.out.println("ME LIKEY");
-        System.out.println(maze.getRoom(0, 1).getSeat(RoomSides.LEFT));
 
         scene.setFill(Paint.valueOf("191919ff"));
         primaryStage.setTitle("Pather");

@@ -40,12 +40,10 @@ public class GameObject {
             case LEFT:
                 
                 return new int[] {seedCoord[0] + 1, seedCoord[1]};
-                
         
             case TOP:
                 
                 return new int[] {seedCoord[0], seedCoord[1] + 1};
-                
         
             case BOTTOM:
                 
