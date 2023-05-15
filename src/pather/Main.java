@@ -34,6 +34,10 @@ public class Main extends Application {
     // Enemy
     Enemy enemy = new Enemy(maze);
 
+    // Pathfinding class
+    Pathfinding pathfinding = new Pathfinding(maze);
+
+
     // METHODS
 
     // Capture input
@@ -110,6 +114,8 @@ public class Main extends Application {
         enemy.move(maze.getRoom(3, 4), maze.getRoom(2, 4));
         
         System.out.println(maze.getRoom(2, 4).seats.get(RoomSides.MIDDLE));
+
+        pathfinding.findPath(maze.getRoom(0, 0), maze.getRoom(0, 4));
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
