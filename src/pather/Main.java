@@ -39,6 +39,8 @@ public class Main extends Application {
     // Pathfinding class
     Pathfinding pathfinding = new Pathfinding(maze);
 
+    // Draggable
+    Draggable draggable = new Draggable();
 
     // METHODS
 
@@ -134,6 +136,10 @@ public class Main extends Application {
 
         // Add enemy to root
         root.getChildren().add(enemy.enemyModel);
+
+        draggable.makeDraggable(blockSprite, maze);
+
+        
 
         
 

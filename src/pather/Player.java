@@ -65,9 +65,7 @@ public class Player extends GameObject {
             
                 case RIGHT:
                     nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
-
                     playerModel.setCenterX(playerModel.getCenterX()+110);
-
 
                     break;
             
@@ -75,7 +73,6 @@ public class Player extends GameObject {
                     nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
                     playerModel.setCenterY(playerModel.getCenterY()+110);
 
-                    
                     break;
             
                 case UP:
