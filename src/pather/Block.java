@@ -61,12 +61,45 @@ public class Block extends GameObject{
     }
 
     // Add block between two rooms
-    public void place(int[] seedCoord, int[] recipientCoord, BlockRotations blockRotation, RoomSides roomSide){
+    public void place(Room room, BlockRotations blockRotation, RoomSides roomSide){
 
-        // Check valid to place room
-        if(isCoordinateAdjacent(seedCoord, recipientCoord)){
-            deliverObjects(seedCoord, recipientCoord, roomSide);
+        // // Check valid to place room
+        // if(isCoordinateAdjacent(seedCoord, recipientCoord)){
+        //     deliverObjects(seedCoord, recipientCoord, roomSide);
+        // }
+
+        changeRoomPosition(room, room, roomSide);
+        // Second room
+        Room secondRoom = new Room();
+        RoomSides secondRoomSide = RoomSides.LEFT;
+
+        switch (roomSide) {
+            case TOP:
+                secondRoom = maze.getRoom(room.y - 1 , room.x);
+                secondRoomSide = RoomSides.BOTTOM;    
+
+                break;
+            case BOTTOM:
+                secondRoom = maze.getRoom(room.y + 1, room.x);
+                secondRoomSide = RoomSides.TOP;    
+
+                break;
+            case LEFT:
+                secondRoom = maze.getRoom(room.y, room.x - 1);
+                secondRoomSide = RoomSides.RIGHT;    
+
+                break;
+            case RIGHT:
+                secondRoom = maze.getRoom(room.y, room.x + 1);
+                secondRoomSide = RoomSides.LEFT;
+                
+                break;
+        
+            default:
+                break;
         }
+
+        changeRoomPosition(secondRoom, secondRoom, secondRoomSide);
     }
 
 

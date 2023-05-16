@@ -78,7 +78,7 @@ public class Player extends GameObject {
                 break;
         }
 
-        changeRoomPosition(currentRoom, nextRoom);  
+        changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
         currentRoom = nextRoom;
     }
 

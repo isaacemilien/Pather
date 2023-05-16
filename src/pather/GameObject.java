@@ -29,11 +29,11 @@ public class GameObject {
     }
 
     // Change room
-    public void changeRoomPosition(Room oldRoom, Room newRoom){
+    public void changeRoomPosition(Room oldRoom, Room newRoom, RoomSides roomSide){
         // remove self from old room center
-        oldRoom.seats.put(RoomSides.MIDDLE, null);
+        oldRoom.seats.put(roomSide, null);
 
         // place self in new room center
-        newRoom.seats.put(RoomSides.MIDDLE, this);
+        newRoom.seats.put(roomSide, this);
     }
 }

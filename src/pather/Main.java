@@ -163,7 +163,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         initialize();
     
-        block.place(new int[] {0,0}, new int[] {0,1}, BlockRotations.HORIZONTAL, RoomSides.RIGHT);
+        block.place(maze.getRoom(0, 0), BlockRotations.HORIZONTAL, RoomSides.BOTTOM);
+
+        System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.TOP));
+        maze.getRoom(1, 0).roomSprite.setFill(Color.RED);
 
         scene.setFill(Paint.valueOf("191919ff"));
         primaryStage.setTitle("Pather");

@@ -60,7 +60,7 @@ public class Enemy extends GameObject{
 
         setEnemySprite(nextRoom);
 
-        changeRoomPosition(currentRoom, nextRoom);
+        changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
         currentRoom = nextRoom;
 
         killPlayer();
