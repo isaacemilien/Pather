@@ -13,8 +13,6 @@ public class Pathfinding {
     // // Start and end rooms
     // Room startRoom, endRoom;
 
-    // Node path leading to position
-    ArrayList<Room> path = new ArrayList<Room>();
 
     // CONSTRUCTORS
     public Pathfinding(Maze maze){
@@ -22,8 +20,12 @@ public class Pathfinding {
     }
 
     // METHODS
-    public void findPath(Room startRoom, Room endRoom){
+    public ArrayList<Room> findPath(Room startRoom, Room endRoom){
         
+        
+        // Node path leading to position
+        ArrayList<Room> path = new ArrayList<Room>();
+
         // room queue, discard sets
         ArrayList<Room> openSet = new ArrayList<Room>();
         ArrayList<Room> closedSet = new ArrayList<Room>();
@@ -56,14 +58,17 @@ public class Pathfinding {
                 // Populate path with rooms
                 while(currentRoom.previousRoom != null){
                     // Colour path way to end position
-                    currentRoom.roomSprite.setFill(Color.web("5599ffff"));
+                    currentRoom.roomSprite.setFill(Color.YELLOW);
 
                     path.add(currentRoom.previousRoom);
                     currentRoom = currentRoom.previousRoom;
                 }
 
                 System.out.println("Path length: " + path.size());
-                return;
+
+                resetNodeValues();
+
+                return path;
             }
 
             // Access each neighbour of current room
@@ -106,6 +111,9 @@ public class Pathfinding {
             openSet.remove(winner);
             closedSet.add(currentRoom);
         }
+
+        resetNodeValues();
+        return null;
     }
     
     // Pathfinding heuristic, manhattan distance
@@ -113,4 +121,16 @@ public class Pathfinding {
         return Math.abs((x1 - x2) + (y1 - y2));
     }
 
+    public void resetNodeValues(){
+        for (int i = 0; i < maze.board.length; i++) {
+            for (int j = 0; j < maze.board.length; j++) {
+
+                maze.board[i][j].gCost = 0;
+                maze.board[i][j].hCost = 0;
+                maze.board[i][j].fCost = 0;
+
+                maze.board[i][j].previousRoom = null;
+            }
+        }
+    }
 }

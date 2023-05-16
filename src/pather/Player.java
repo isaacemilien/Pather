@@ -30,7 +30,13 @@ public class Player extends GameObject {
         position[0] = 0;
         position[1] = 0;
 
-        maze.getRoom(position[0], position[1]).seats.put(RoomSides.MIDDLE, this);
+        // Put default room into current room object;
+        room =  maze.getRoom(position[0], position[1]);
+
+        // Place player in middle of current room
+        room.seats.put(RoomSides.MIDDLE, this);
+
+
 
         pairDirectionValues();
 

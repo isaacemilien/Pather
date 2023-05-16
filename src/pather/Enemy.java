@@ -2,25 +2,58 @@ package pather;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+import java.util.ArrayList; 
+
 
 public class Enemy extends GameObject{
     // FIELDS
 
-    
     // Move enemy on grid
     public Circle enemyModel = new Circle(81, 191, 28);
     Room currentRoom;
 
-    // CONSTRUCTORS
-    public Enemy(Maze maze){
-        super(maze);
+    // Next room that will be moved to
+    Room nextRoom;
+    
+    // Get player object
+    Player player;
 
+    // Set up pathfinding
+    Pathfinding pathfinding = new Pathfinding(maze);
+
+    // CONSTRUCTORS
+    public Enemy(Maze maze, Player player){
+        super(maze);
 
         // Declare creation
         System.out.println("Enemy created");
 
         // Change enemy model color to red
         enemyModel.setFill(Color.RED);
+
+        // Set player information
+        this.player = player;
+
+        // Set default room
+        currentRoom = maze.getRoom(4, 4);
+        setEnemySprite(currentRoom);
+
+        // // Set enemy to default position
+        // move(currentRoom, currentRoom);
+
+        // pathfinding.findPath(currentRoom, player.room);
+
+        // // Get path to player, get first room in list
+        // nextRoom = pathfinding.path.get(pathfinding.path.size() - 2);
+
+        // // Log room position
+        // System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
+
+        // // Move from current room to next give room in path
+        // move(currentRoom, nextRoom);
+
+        // move();
+        // move();
 
     }
 
@@ -31,7 +64,6 @@ public class Enemy extends GameObject{
         // Get given room x, y pos, add 30 because that is the ofset to get to center of shape because enemy model position from center
         double roomX = room.roomSprite.getX() + 30;
         double roomY = room.roomSprite.getY() + 30;
-
 
         // Set enemy model to room x y
         enemyModel.setCenterX(roomX);
@@ -51,8 +83,19 @@ public class Enemy extends GameObject{
     }
     
     // Move enemy
-    public void move(Room oldRoom, Room newRoom){
-        changeRoomPosition(oldRoom, newRoom);
-        setEnemySprite(newRoom);
+    public void move(){
+
+        // Get path to player, get first room in list
+
+        ArrayList<Room> path = pathfinding.findPath(currentRoom, player.room);
+        nextRoom = path.get(path.size() - 2);
+
+        setEnemySprite(nextRoom);
+        System.out.println(nextRoom.x + " " + nextRoom.y);
+
+        // // Log room position
+        System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
+
+        changeRoomPosition(currentRoom, nextRoom);
     }
 }

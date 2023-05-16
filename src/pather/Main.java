@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import java.util.ArrayList; 
+
 
 public class Main extends Application {
 
@@ -32,7 +34,7 @@ public class Main extends Application {
     Sprite blockSprite = new Sprite(111,66,50,30, Color.web("ccccccff"));
 
     // Enemy
-    Enemy enemy = new Enemy(maze);
+    Enemy enemy = new Enemy(maze, player);
 
     // Pathfinding class
     Pathfinding pathfinding = new Pathfinding(maze);
@@ -84,12 +86,15 @@ public class Main extends Application {
                     player.move(movementKey);
                     player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
 
+                    enemy.move();
+            
                     break;
 
                 // Rotate
                 case R:
                     System.out.println("R pressed");
                     movementKey = MovementKeys.ROTATE;
+                
                     break;
             } 
         });
@@ -111,11 +116,9 @@ public class Main extends Application {
         // Add enemy to root
         root.getChildren().add(enemy.enemyModel);
 
-        enemy.move(maze.getRoom(3, 4), maze.getRoom(2, 4));
+        // enemy.move(maze.getRoom(3, 4), maze.getRoom(2, 4));
         
         System.out.println(maze.getRoom(2, 4).seats.get(RoomSides.MIDDLE));
-
-        pathfinding.findPath(maze.getRoom(0, 0), maze.getRoom(0, 4));
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
