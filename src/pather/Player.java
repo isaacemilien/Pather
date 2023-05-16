@@ -39,8 +39,8 @@ public class Player extends GameObject {
     // METHODS
 
     // check if there is a block on a given seat
-    public boolean isBlock(Room currentRoom){
-        if(Objects.isNull(currentRoom.getSeat(RoomSides.RIGHT))){
+    public boolean isBlock(Room currentRoom, MovementKeys movementKey){
+        if(Objects.isNull(currentRoom.getSeat(directionValues.get(movementKey)))){
             System.out.println("Not a block in that direction");
 
             return false;
@@ -51,35 +51,49 @@ public class Player extends GameObject {
     }
 
     public void move(MovementKeys movementKey){
-        // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
 
-        switch (movementKey) {
-            case LEFT:
-                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y - 1);
-                
-                break;
-        
-            case RIGHT:
-                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
 
-                break;
-        
-            case DOWN:
-                nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
-                
-                break;
-        
-            case UP:
-                nextRoom = maze.getRoom(currentRoom.x - 1, currentRoom.y);
+        if(isBlock(currentRoom, movementKey)){
+            // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
 
-                break;
-        
-            default:
-                break;
+            switch (movementKey) {
+                case LEFT:
+                    nextRoom = maze.getRoom(currentRoom.x, currentRoom.y - 1);
+                    playerModel.setCenterX(playerModel.getCenterX()-110);
+
+                    break;
+            
+                case RIGHT:
+                    nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
+
+                    playerModel.setCenterX(playerModel.getCenterX()+110);
+
+
+                    break;
+            
+                case DOWN:
+                    nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
+                    playerModel.setCenterY(playerModel.getCenterY()+110);
+
+                    
+                    break;
+            
+                case UP:
+                    nextRoom = maze.getRoom(currentRoom.x - 1, currentRoom.y);
+                    playerModel.setCenterY(playerModel.getCenterY()-110);
+
+                    break;
+            
+                default:
+                    break;
+            }
+
+            changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
+            currentRoom = nextRoom;
+
         }
 
-        changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
-        currentRoom = nextRoom;
+
     }
 
     void pairDirectionValues(){

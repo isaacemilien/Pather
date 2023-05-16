@@ -54,7 +54,6 @@ public class Main extends Application {
                     movementKey = MovementKeys.UP;
 
                     player.move(movementKey);
-                    player.playerModel.setCenterY(player.playerModel.getCenterY()-110);
                     enemy.move();
 
 
@@ -69,7 +68,6 @@ public class Main extends Application {
                     movementKey = MovementKeys.LEFT;
 
                     player.move(movementKey);
-                    player.playerModel.setCenterX(player.playerModel.getCenterX()-110);
                     enemy.move();
                     System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
 
@@ -83,7 +81,6 @@ public class Main extends Application {
                     movementKey = MovementKeys.DOWN;
 
                     player.move(movementKey);
-                    player.playerModel.setCenterY(player.playerModel.getCenterY()+110);
                     enemy.move();
                     System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
 
@@ -101,7 +98,7 @@ public class Main extends Application {
                     // player.currentRoom = maze.getRoom(0, 1);
 
                     player.move(movementKey);
-                    player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
+                    // player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
 
                     // Show player current position
                     System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
