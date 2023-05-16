@@ -35,7 +35,7 @@ public class GameObject {
         switch (direction) {
             case RIGHT:
                 
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
+                return new int[] {seedCoord[0] - 1, seedCoord[1]};
         
             case LEFT:
                 
@@ -43,11 +43,11 @@ public class GameObject {
         
             case TOP:
                 
-                return new int[] {seedCoord[0], seedCoord[1] + 1};
+                return new int[] {seedCoord[0], seedCoord[1] - 1};
         
             case BOTTOM:
                 
-                return new int[] {seedCoord[0], seedCoord[1] - 1};
+                return new int[] {seedCoord[0], seedCoord[1] + 1};
         
             default:
                 return new int[] {777, 777};

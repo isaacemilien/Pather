@@ -41,8 +41,8 @@ public class Maze {
         // endRoom = this.getRoom(0, 4);
 
         // // Set given room to being unpathable
-        // getRoom(0, 2).notPathable = true;
-        // getRoom(1, 3).notPathable = true;
+        getRoom(0, 2).notPathable = true;
+        getRoom(1, 3).notPathable = true;
         // getRoom(0, 3).notPathable = true;
 
         // // Add start node open set

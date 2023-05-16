@@ -18,8 +18,8 @@ public class Player extends GameObject {
     public HashMap<MovementKeys, RoomSides> directionValues = new HashMap<>();
     public RoomSides seatPosition;
 
-    public Room room;
-    public Room adjacentRoom;
+    public Room currentRoom;
+    public Room nextRoom;
 
     // Player model
     public Circle playerModel = new Circle(81, 81, 28);
@@ -30,11 +30,16 @@ public class Player extends GameObject {
         position[0] = 0;
         position[1] = 0;
 
-        // Put default room into current room object;
-        room =  maze.getRoom(position[0], position[1]);
+        // Put default currentRoom into current currentRoom object;
+        currentRoom = maze.getRoom(0, 0);
 
-        // Place player in middle of current room
-        room.seats.put(RoomSides.MIDDLE, this);
+        System.out.println(currentRoom.y);
+
+
+        
+
+        // Place player in middle of current currentRoom
+        currentRoom.seats.put(RoomSides.MIDDLE, this);
 
 
 
@@ -64,8 +69,8 @@ public class Player extends GameObject {
     }
 
     // check if there is a block on a given seat
-    public boolean isBlock(Room room){
-        if(Objects.isNull(room.getSeat(RoomSides.RIGHT))){
+    public boolean isBlock(Room currentRoom){
+        if(Objects.isNull(currentRoom.getSeat(RoomSides.RIGHT))){
             System.out.println("Not a block in that direction");
 
             return false;
@@ -75,33 +80,107 @@ public class Player extends GameObject {
         return true;
     }
 
-    // leave current room 
+    // leave current currentRoom 
     public void leaveRoom(Room currentRoom){
         // Change player coordinates
         position = nextPosition;
 
-        // Set current room middle place to empty
+        // Set current currentRoom middle place to empty
         currentRoom.seats.put(RoomSides.MIDDLE, null);
-
-        System.out.println("Left current room");
     }
 
     public void enterRoom(Room newRoom){
         newRoom.setSeat(RoomSides.MIDDLE, this);
 
-        System.out.println("Entered new room");
+        currentRoom = newRoom;
     }
 
     public void move(MovementKeys movementKey){
-        room = maze.getRoom(position[0], position[1]);
+        // currentRoom = maze.getRoom(position[0], position[1]);
 
-        seatPosition = directionValues.get(movementKey);
-        nextPosition = getAdjacentCoord(position, seatPosition);
+        // seatPosition = directionValues.get(movementKey);
+        // nextPosition = getAdjacentCoord(position, seatPosition);
 
-        if(nextCoordExist(maze.width, maze.height, nextPosition[0], nextPosition[1]) && isBlock(room)){
-            leaveRoom(room);
-            enterRoom(maze.getRoom(nextPosition[0], nextPosition[1]));
+        // nextRoom = maze.getRoom(nextPosition[0], nextPosition[1]);
+
+        // if(movementKey == MovementKeys.DOWN){
+        //     nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
+
+        //     currentRoom.seats.put(RoomSides.MIDDLE, null);
+        //     nextRoom.seats.put(RoomSides.MIDDLE, this);
+
+        //     currentRoom = nextRoom;
+        // }
+
+        // if(nextCoordExist(maze.width, maze.height, nextPosition[0], nextPosition[1]) /*&& isBlock(currentRoom)*/){
+            
+
+
+        // }
+        
+
+
+
+
+        // FUCK YOU IM REDOING THE ENTIRE MOVEMENT BECAUSE SUCK OUT
+        
+        // down key pressed
+        // move the player into the currentRoom below
+        // if(movementKey == MovementKeys.DOWN){            
+        //     nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
+            
+        //     changeRoomPosition(currentRoom, nextRoom);
+        // }
+
+        // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
+
+        switch (movementKey) {
+            case LEFT:
+                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y - 1);
+                
+                changeRoomPosition(currentRoom, nextRoom);
+                break;
+        
+            case RIGHT:
+                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
+                
+                changeRoomPosition(currentRoom, nextRoom);
+                break;
+        
+            case DOWN:
+                
+                nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
+                // currentRoom = get
+                // System.out.println("Hi ^_^" + (currentRoom.x + 1)+ " "+ currentRoom.y);
+                System.out.println(currentRoom.x);
+                System.out.println(currentRoom.y);
+                
+                changeRoomPosition(currentRoom, nextRoom);
+                
+
+                break;
+        
+            case UP:
+                nextRoom = maze.getRoom(currentRoom.x - 1, currentRoom.y);
+                    
+                changeRoomPosition(currentRoom, nextRoom);                
+                break;
+        
+            default:
+                break;
         }
+    }
+
+    // Change player room
+    public void changeRoomPosition(Room oldRoom, Room newRoom){
+        // remove self from old room center
+        oldRoom.seats.put(RoomSides.MIDDLE, null);
+
+        // place self in new room center
+        newRoom.seats.put(RoomSides.MIDDLE, this);
+
+        // Save new room as this objects current room
+        currentRoom = newRoom;
     }
 
     void pairDirectionValues(){

@@ -26,7 +26,6 @@ public class Enemy extends GameObject{
         super(maze);
 
         // Declare creation
-        System.out.println("Enemy created");
 
         // Change enemy model color to red
         enemyModel.setFill(Color.RED);
@@ -87,15 +86,34 @@ public class Enemy extends GameObject{
 
         // Get path to player, get first room in list
 
-        ArrayList<Room> path = pathfinding.findPath(currentRoom, player.room);
-        nextRoom = path.get(path.size() - 2);
+        ArrayList<Room> path = pathfinding.findPath(currentRoom, player.currentRoom);
+
+        System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
+
+        nextRoom = path.get(path.size() - 1);
 
         setEnemySprite(nextRoom);
-        System.out.println(nextRoom.x + " " + nextRoom.y);
+        System.out.println(path.size());
+        // System.out.println(nextRoom.x + " " + nextRoom.y);
 
         // // Log room position
-        System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
+        // System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
 
         changeRoomPosition(currentRoom, nextRoom);
+        killPlayer();
+    }
+
+    // Checks adjacent rooms, player in there? kill it 
+    public void killPlayer(){
+        // Get current rooms adjacent rooms
+        ArrayList<Room> adjacentRooms = maze.getNeighbours(currentRoom.x, currentRoom.y);
+
+        // Iterate through each room
+        for (int i = 0; i < adjacentRooms.size(); i++) {
+            // Check if room contains player in the middle
+            if(adjacentRooms.get(i).seats.get(RoomSides.MIDDLE) == player){
+                System.out.println("Killing this yute");
+            }
+        }
     }
 }

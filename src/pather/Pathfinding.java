@@ -21,6 +21,14 @@ public class Pathfinding {
 
     // METHODS
     public ArrayList<Room> findPath(Room startRoom, Room endRoom){
+
+
+        // Reset all colors
+        for (int i = 0; i < maze.board.length; i++) {
+            for (int j = 0; j < maze.board.length; j++) {
+                maze.board[i][j].roomSprite.setFill(Color.BLUE);
+            }
+        }
         
         
         // Node path leading to position
@@ -53,20 +61,26 @@ public class Pathfinding {
             
             // Check arrived goal
             if(currentRoom.x == endRoom.x && currentRoom.y == endRoom.y){
-                System.out.println("Reached end goal");
+                // System.out.println("Reached end goal");
 
                 // Populate path with rooms
                 while(currentRoom.previousRoom != null){
                     // Colour path way to end position
+                    // currentRoom.roomSprite.setFill(Color.BLUE);
+
+
+
                     currentRoom.roomSprite.setFill(Color.YELLOW);
 
                     path.add(currentRoom.previousRoom);
                     currentRoom = currentRoom.previousRoom;
                 }
 
-                System.out.println("Path length: " + path.size());
 
                 resetNodeValues();
+
+                // remove final element from path 
+                path.remove(path.size() - 1);
 
                 return path;
             }

@@ -42,7 +42,6 @@ public class Block extends GameObject{
         for (int i = 0; i < 2; i++) {
             
             if(firstIntegers[i] + transpositionValue == secondIntegers[i] && firstIntegers[1 - i] == secondCoord[1 - i]){
-                System.out.println("adjacent");
                 return true;
             }
 

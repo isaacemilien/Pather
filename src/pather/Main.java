@@ -53,7 +53,13 @@ public class Main extends Application {
                     System.out.println("W pressed");
                     movementKey = MovementKeys.UP;
 
+                    player.move(movementKey);
                     player.playerModel.setCenterY(player.playerModel.getCenterY()-110);
+                    enemy.move();
+
+
+                    System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
+
 
                     break;
 
@@ -62,7 +68,11 @@ public class Main extends Application {
                     System.out.println("A pressed");
                     movementKey = MovementKeys.LEFT;
 
+                    player.move(movementKey);
                     player.playerModel.setCenterX(player.playerModel.getCenterX()-110);
+                    enemy.move();
+                    System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
+
 
 
                     break;
@@ -74,6 +84,10 @@ public class Main extends Application {
 
                     player.move(movementKey);
                     player.playerModel.setCenterY(player.playerModel.getCenterY()+110);
+                    enemy.move();
+                    System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
+
+
 
 
                     break;
@@ -83,10 +97,17 @@ public class Main extends Application {
                     System.out.println("D pressed");
                     movementKey = MovementKeys.RIGHT;
 
+
+                    // player.currentRoom = maze.getRoom(0, 1);
+
                     player.move(movementKey);
                     player.playerModel.setCenterX(player.playerModel.getCenterX()+110);
 
+                    // Show player current position
+                    System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
+
                     enemy.move();
+
             
                     break;
 
@@ -94,6 +115,7 @@ public class Main extends Application {
                 case R:
                     System.out.println("R pressed");
                     movementKey = MovementKeys.ROTATE;
+
                 
                     break;
             } 
@@ -116,9 +138,7 @@ public class Main extends Application {
         // Add enemy to root
         root.getChildren().add(enemy.enemyModel);
 
-        // enemy.move(maze.getRoom(3, 4), maze.getRoom(2, 4));
         
-        System.out.println(maze.getRoom(2, 4).seats.get(RoomSides.MIDDLE));
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
