@@ -36,24 +36,6 @@ public class Enemy extends GameObject{
         // Set default room
         currentRoom = maze.getRoom(4, 4);
         setEnemySprite(currentRoom);
-
-        // // Set enemy to default position
-        // move(currentRoom, currentRoom);
-
-        // pathfinding.findPath(currentRoom, player.room);
-
-        // // Get path to player, get first room in list
-        // nextRoom = pathfinding.path.get(pathfinding.path.size() - 2);
-
-        // // Log room position
-        // System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
-
-        // // Move from current room to next give room in path
-        // move(currentRoom, nextRoom);
-
-        // move();
-        // move();
-
     }
 
     // METHODS
@@ -68,38 +50,19 @@ public class Enemy extends GameObject{
         enemyModel.setCenterX(roomX);
         enemyModel.setCenterY(roomY);
     }
-
-    // Change enemy room
-    public void changeRoomPosition(Room oldRoom, Room newRoom){
-        // remove self from old room center
-        oldRoom.seats.put(RoomSides.MIDDLE, null);
-
-        // place self in new room center
-        newRoom.seats.put(RoomSides.MIDDLE, this);
-
-        // Save new room as this objects current room
-        currentRoom = newRoom;
-    }
     
     // Move enemy
     public void move(){
 
         // Get path to player, get first room in list
-
         ArrayList<Room> path = pathfinding.findPath(currentRoom, player.currentRoom);
-
-        System.out.println("Player current position is [" + player.currentRoom.x + ", " + player.currentRoom.y + "]");
-
         nextRoom = path.get(path.size() - 1);
 
         setEnemySprite(nextRoom);
-        System.out.println(path.size());
-        // System.out.println(nextRoom.x + " " + nextRoom.y);
-
-        // // Log room position
-        // System.out.println("Next room positions \n X: " + nextRoom.x + " Y: " + nextRoom.y);
 
         changeRoomPosition(currentRoom, nextRoom);
+        currentRoom = nextRoom;
+
         killPlayer();
     }
 

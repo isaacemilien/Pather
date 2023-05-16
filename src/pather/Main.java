@@ -21,7 +21,7 @@ public class Main extends Application {
     Maze maze = new Maze(5,5);
     Room room = new Room();
 
-    Block block = new Block(maze, "This is my whole as fucking rahhhh shit");
+    Block block = new Block(maze);
 
     // Last movement key pressed
     MovementKeys movementKey = MovementKeys.DOWN;

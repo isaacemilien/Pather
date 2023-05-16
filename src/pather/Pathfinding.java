@@ -30,7 +30,6 @@ public class Pathfinding {
             }
         }
         
-        
         // Node path leading to position
         ArrayList<Room> path = new ArrayList<Room>();
 

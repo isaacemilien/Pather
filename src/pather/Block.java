@@ -12,8 +12,6 @@ public class Block extends GameObject{
     // FIELDS
     int[] seedRoomCoords = new int[2];
 
-    String id = "";
-
     public Room seedRoom;
     public Room adjacentRoom;
 
@@ -22,9 +20,8 @@ public class Block extends GameObject{
     int[] adjacentRoomCoords = new int[2];
 
     // CONSTRUCTORS
-    public Block(Maze maze, String id){ 
+    public Block(Maze maze){ 
         super(maze);
-        this.id = id;
     }
 
     // METHODS

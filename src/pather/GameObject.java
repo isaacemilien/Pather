@@ -28,29 +28,12 @@ public class GameObject {
         adjacentSides.put(RoomSides.LEFT, RoomSides.RIGHT);
     }
 
+    // Change room
+    public void changeRoomPosition(Room oldRoom, Room newRoom){
+        // remove self from old room center
+        oldRoom.seats.put(RoomSides.MIDDLE, null);
 
-    // Transpose coordinates of current position to new position based on given coordinates
-    public int[] getAdjacentCoord(int[] seedCoord, RoomSides direction){
-
-        switch (direction) {
-            case RIGHT:
-                
-                return new int[] {seedCoord[0] - 1, seedCoord[1]};
-        
-            case LEFT:
-                
-                return new int[] {seedCoord[0] + 1, seedCoord[1]};
-        
-            case TOP:
-                
-                return new int[] {seedCoord[0], seedCoord[1] - 1};
-        
-            case BOTTOM:
-                
-                return new int[] {seedCoord[0], seedCoord[1] + 1};
-        
-            default:
-                return new int[] {777, 777};
-        }
+        // place self in new room center
+        newRoom.seats.put(RoomSides.MIDDLE, this);
     }
 }
