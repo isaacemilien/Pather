@@ -7,10 +7,12 @@ public class Draggable {
     private double mouseAnchorX;
     private double mouseAnchorY;
     Maze maze;
+    Block currentBlock;
 
-    public void makeDraggable(Node node, Maze maze){
+    public void makeDraggable(Node node, Maze maze, Block currentBlock){
 
-            this.maze = maze;
+        this.maze = maze;
+        this.currentBlock = currentBlock;
 
         node.setOnMousePressed(mouseEvent -> {
             mouseAnchorX = mouseEvent.getX();
@@ -77,6 +79,9 @@ public class Draggable {
             if(found){
                 System.out.println("Inbetween");
                 System.out.println(foundRoom.x + " " + foundRoom.y);
+                currentBlock.place(foundRoom);
+
+                // System.out.println(foundRoom.seats.get(RoomSides.RIGHT));
             }else{
                 System.out.println("NOT");
             }

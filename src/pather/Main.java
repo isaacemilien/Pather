@@ -115,6 +115,12 @@ public class Main extends Application {
                     System.out.println("R pressed");
                     movementKey = MovementKeys.ROTATE;
 
+
+                    System.out.println(maze.getRoom(0, 2).getSeat(RoomSides.RIGHT));
+                    System.out.println(maze.getRoom(0, 3).getSeat(RoomSides.LEFT));
+
+                    maze.getRoom(0, 3).roomSprite.setFill(Color.ORANGE);
+
                 
                     break;
             } 
@@ -137,7 +143,7 @@ public class Main extends Application {
         // Add enemy to root
         root.getChildren().add(enemy.enemyModel);
 
-        draggable.makeDraggable(blockSprite, maze);
+        draggable.makeDraggable(blockSprite, maze, block);
 
         
 
@@ -166,7 +172,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         initialize();
     
-        block.place(maze.getRoom(0, 0), BlockRotations.HORIZONTAL, RoomSides.BOTTOM);
+        // block.place(maze.getRoom(0, 0), BlockRotations.HORIZONTAL, RoomSides.BOTTOM);
 
         System.out.println(maze.getRoom(1, 0).getSeat(RoomSides.TOP));
         maze.getRoom(1, 0).roomSprite.setFill(Color.RED);

@@ -10,15 +10,8 @@ import java.util.Collections;
 public class Block extends GameObject{
 
     // FIELDS
-    int[] seedRoomCoords = new int[2];
-
-    public Room seedRoom;
-    public Room adjacentRoom;
-
-    RoomSides placementSide = RoomSides.RIGHT;
-
-    int[] adjacentRoomCoords = new int[2];
-
+    BlockRotations currentRotation = BlockRotations.VERTICAL;
+ 
     // CONSTRUCTORS
     public Block(Maze maze){ 
         super(maze);
@@ -61,36 +54,46 @@ public class Block extends GameObject{
     }
 
     // Add block between two rooms
-    public void place(Room room, BlockRotations blockRotation, RoomSides roomSide){
+    public void place(Room room){
 
         // // Check valid to place room
         // if(isCoordinateAdjacent(seedCoord, recipientCoord)){
         //     deliverObjects(seedCoord, recipientCoord, roomSide);
         // }
 
+        RoomSides roomSide;
+
+        if(currentRotation == BlockRotations.HORIZONTAL){
+            roomSide = RoomSides.RIGHT;
+        }else{
+            roomSide = RoomSides.BOTTOM;
+        }
+        // VERY WEIRD PROBLEMS GOING ON WITH THE X Y, AND COORDINATES BEING SWITCHED :/
+
         changeRoomPosition(room, room, roomSide);
         // Second room
         Room secondRoom = new Room();
         RoomSides secondRoomSide = RoomSides.LEFT;
 
+
         switch (roomSide) {
             case TOP:
-                secondRoom = maze.getRoom(room.y - 1 , room.x);
+                secondRoom = maze.getRoom(room.x - 1 ,  room.y);
                 secondRoomSide = RoomSides.BOTTOM;    
 
                 break;
             case BOTTOM:
-                secondRoom = maze.getRoom(room.y + 1, room.x);
+                secondRoom = maze.getRoom(room.x + 1,  room.y);
                 secondRoomSide = RoomSides.TOP;    
 
                 break;
             case LEFT:
-                secondRoom = maze.getRoom(room.y, room.x - 1);
+                secondRoom = maze.getRoom(room.x, room.y - 1);
                 secondRoomSide = RoomSides.RIGHT;    
 
                 break;
             case RIGHT:
-                secondRoom = maze.getRoom(room.y, room.x + 1);
+                secondRoom = maze.getRoom(room.x, room.y + 1);
                 secondRoomSide = RoomSides.LEFT;
                 
                 break;
@@ -100,6 +103,8 @@ public class Block extends GameObject{
         }
 
         changeRoomPosition(secondRoom, secondRoom, secondRoomSide);
+
+        System.out.println(secondRoom.x + " " + secondRoom.y);
     }
 
 

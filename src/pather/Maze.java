@@ -36,11 +36,11 @@ public class Maze {
 
         // Add neighbours to each room, done seperatly from room populate to ensure accuracy
         populateNeighbours();
-        
+
         populateRoomSprites(51, 51, 60, 60, 50, "e3dbdbff");
 
         // // Set given room to being unpathable
-        getRoom(0, 2).notPathable = true;
+        // getRoom(0, 2).notPathable = true;
     }
 
     // METHODS
