@@ -10,7 +10,7 @@ import java.util.Collections;
 public class Block extends GameObject{
 
     // FIELDS
-    BlockRotations currentRotation = BlockRotations.VERTICAL;
+    BlockRotations currentRotation = BlockRotations.HORIZONTAL;
  
     // CONSTRUCTORS
     public Block(Maze maze){ 

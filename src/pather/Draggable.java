@@ -8,27 +8,36 @@ public class Draggable {
     private double mouseAnchorY;
     Maze maze;
     Block currentBlock;
+    Sprite blockSprite;
 
-    public void makeDraggable(Node node, Maze maze, Block currentBlock){
+    boolean found = false;
+
+
+    public void makeDraggable(Sprite blockSprite, Maze maze, Block currentBlock){
 
         this.maze = maze;
         this.currentBlock = currentBlock;
+        this.blockSprite = blockSprite;
 
-        node.setOnMousePressed(mouseEvent -> {
+        blockSprite.setOnMousePressed(mouseEvent -> {
             mouseAnchorX = mouseEvent.getX();
             mouseAnchorY = mouseEvent.getY();
         });
 
-        node.setOnMouseDragged(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
+        blockSprite.setOnMouseDragged(mouseEvent -> {
 
-            // System.out.println(mouseEvent.getSceneX() + " " + mouseEvent.getSceneY());
+            if(!found){
+                blockSprite.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+                blockSprite.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
+
+            }
+
+
         });
 
-        node.setOnMouseReleased(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
+        blockSprite.setOnMouseReleased(mouseEvent -> {
+            // blockSprite.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+            // blockSprite.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
             // System.out.println("released");
             
             
@@ -36,6 +45,7 @@ public class Draggable {
             // double roomX = firstRoom.roomSprite.getX() + 50;
             // double roomY = firstRoom.roomSprite.getY();
             
+            System.out.println(mouseEvent.getSceneX() + " " + mouseEvent.getSceneY());
             
             double x = mouseEvent.getSceneX(); 
             double y = mouseEvent.getSceneY(); 
@@ -44,7 +54,6 @@ public class Draggable {
 
 
 
-            boolean found = false;
             Room foundRoom = new Room();
 
             for (int i = 0; i < maze.board[0].length; i++) {
@@ -81,6 +90,23 @@ public class Draggable {
                 System.out.println(foundRoom.x + " " + foundRoom.y);
                 currentBlock.place(foundRoom);
 
+
+                // Get the room
+
+                // get position from the room
+                double foundRoomX = foundRoom.roomSprite.getX();
+                double foundRoomY = foundRoom.roomSprite.getY();
+                
+
+                double positionNextX = foundRoomX +60;
+                double positionNextY = foundRoomY +16;
+
+                // blockSprite.setCenterX = positionNextX;
+
+                blockSprite.setX(positionNextX);
+                blockSprite.setY(positionNextY);
+
+                System.out.println(blockSprite.getX() + " " +  blockSprite.getY());
                 // System.out.println(foundRoom.seats.get(RoomSides.RIGHT));
             }else{
                 System.out.println("NOT");
