@@ -19,7 +19,7 @@ public class Player extends GameObject {
     public Room nextRoom;
 
     // Player model
-    public Circle playerModel = new Circle(81, 81, 28);
+    public Circle playerModel = new Circle(70, 70, 28);
 
     // CONSTRUCTORS
     public Player(Maze maze){
@@ -53,7 +53,7 @@ public class Player extends GameObject {
     public void move(MovementKeys movementKey){
 
 
-        if(isBlock(currentRoom, movementKey)){
+        if(true){
             // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
 
             switch (movementKey) {

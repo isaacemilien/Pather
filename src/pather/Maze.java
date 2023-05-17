@@ -37,7 +37,7 @@ public class Maze {
         // Add neighbours to each room, done seperatly from room populate to ensure accuracy
         populateNeighbours();
 
-        populateRoomSprites(51, 51, 60, 60, 50, "e3dbdbff");
+        populateRoomSprites(40, 40, 60, 60, 50, "e3dbdbff");
 
         // // Set given room to being unpathable
         // getRoom(0, 2).notPathable = true;
@@ -100,7 +100,7 @@ public class Maze {
 
     // Returns array of all sprites attached to each room
     public Sprite[] getRoomSprites(){
-        Sprite[] roomSprites = new Sprite[25];
+        Sprite[] roomSprites = new Sprite[width * height];
         int roomCount = 0;
 
         for (int i = 0; i < board.length; i++) {
