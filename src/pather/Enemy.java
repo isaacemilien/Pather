@@ -24,8 +24,6 @@ public class Enemy extends GameObject{
     public Enemy(Maze maze, Player player){
         super(maze);
 
-        // Declare creation
-
         // Change enemy model color to red
         model.setFill(Color.web("ff5555ff"));
 
