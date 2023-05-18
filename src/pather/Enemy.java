@@ -5,11 +5,10 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList; 
 
 
-public class Enemy extends GameObject{
+public class Enemy extends Entity{
     // FIELDS
 
     // Move enemy on grid
-    public Circle enemyModel = new Circle(81, 191, 28);
     Room currentRoom;
 
     // Next room that will be moved to
@@ -28,37 +27,29 @@ public class Enemy extends GameObject{
         // Declare creation
 
         // Change enemy model color to red
-        enemyModel.setFill(Color.RED);
+        model.setFill(Color.web("ff5555ff"));
 
         // Set player information
         this.player = player;
 
         // Set default room
-        currentRoom = maze.getRoom(4, 4);
-        setEnemySprite(currentRoom);
+        currentRoom = maze.getRoom(0, 0);
+        setModelRoom(currentRoom, model);
     }
 
     // METHODS
 
-    // Set room sprite coordinates to enemy model coordinate
-    public void setEnemySprite(Room room){
-        // Get given room x, y pos, add 30 because that is the ofset to get to center of shape because enemy model position from center
-        double roomX = room.roomSprite.getX() + 30;
-        double roomY = room.roomSprite.getY() + 30;
-
-        // Set enemy model to room x y
-        enemyModel.setCenterX(roomX);
-        enemyModel.setCenterY(roomY);
-    }
-    
     // Move enemy
     public void move(){
 
         // Get path to player, get first room in list
         ArrayList<Room> path = pathfinding.findPath(currentRoom, player.currentRoom);
-        nextRoom = path.get(path.size() - 1);
 
-        setEnemySprite(nextRoom);
+        if(path.size() - 1 >= 0){
+            nextRoom = path.get(path.size() - 1);
+        }
+
+        setModelRoom(nextRoom, model);
 
         changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
         currentRoom = nextRoom;
@@ -75,7 +66,7 @@ public class Enemy extends GameObject{
         for (int i = 0; i < adjacentRooms.size(); i++) {
             // Check if room contains player in the middle
             if(adjacentRooms.get(i).seats.get(RoomSides.MIDDLE) == player){
-                System.out.println("Killing this yute");
+                player.isDead = true;
             }
         }
     }

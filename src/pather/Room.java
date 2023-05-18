@@ -14,6 +14,8 @@ public class Room {
 
     Sprite roomSprite;
 
+    boolean winning = false;
+
     // Path finding information
     int x, y;
     int gCost, hCost, fCost;

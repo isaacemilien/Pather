@@ -23,10 +23,14 @@ public class Pathfinding {
     public ArrayList<Room> findPath(Room startRoom, Room endRoom){
 
 
-        // Reset all colors
+        // Reset all colors, debug colors
         for (int i = 0; i < maze.board.length; i++) {
             for (int j = 0; j < maze.board.length; j++) {
-                maze.board[i][j].roomSprite.setFill(Color.BLUE);
+                Room room = maze.getRoom(i,j);
+
+                if(!room.notPathable && !room.winning){
+                    room.roomSprite.setFill(Color.web("e3dbdbff"));
+                }
             }
         }
         
@@ -69,7 +73,7 @@ public class Pathfinding {
 
 
 
-                    currentRoom.roomSprite.setFill(Color.YELLOW);
+                    currentRoom.roomSprite.setFill(Color.web("ffff88ff"));
 
                     path.add(currentRoom.previousRoom);
                     currentRoom = currentRoom.previousRoom;

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
  * Game object player controls
  */
 
-public class Player extends GameObject {
+public class Player extends Entity {
 
     // FIELDS
     public HashMap<MovementKeys, RoomSides> directionValues = new HashMap<>();
@@ -18,22 +18,23 @@ public class Player extends GameObject {
     public Room currentRoom;
     public Room nextRoom;
 
-    // Player model
-    public Circle playerModel = new Circle(70, 70, 28);
+    public boolean isDead = false;
 
     // CONSTRUCTORS
     public Player(Maze maze){
         super(maze);
 
         // Put default currentRoom into current currentRoom object;
-        currentRoom = maze.getRoom(0, 0);
+        currentRoom = maze.getRoom(3, 6);
 
         // Place player in middle of current currentRoom
         currentRoom.seats.put(RoomSides.MIDDLE, this);
 
         pairDirectionValues();
 
-        playerModel.setFill(Color.web("5599ffff"));
+        model.setFill(Color.web("5599ffff"));
+
+        setModelRoom(currentRoom, model);
     }
 
     // METHODS
@@ -51,46 +52,45 @@ public class Player extends GameObject {
     }
 
     public void move(MovementKeys movementKey){
+        // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
 
+        switch (movementKey) {
+            case LEFT:
+                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y - 1);
 
-        if(true){
-            // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
+                break;
+        
+            case RIGHT:
+                nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
 
-            switch (movementKey) {
-                case LEFT:
-                    nextRoom = maze.getRoom(currentRoom.x, currentRoom.y - 1);
-                    playerModel.setCenterX(playerModel.getCenterX()-110);
+                break;
+        
+            case DOWN:
+                nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
 
-                    break;
-            
-                case RIGHT:
-                    nextRoom = maze.getRoom(currentRoom.x, currentRoom.y + 1);
-                    playerModel.setCenterX(playerModel.getCenterX()+110);
+                break;
+        
+            case UP:
+                nextRoom = maze.getRoom(currentRoom.x - 1, currentRoom.y);
 
-                    break;
-            
-                case DOWN:
-                    nextRoom = maze.getRoom(currentRoom.x + 1, currentRoom.y);
-                    playerModel.setCenterY(playerModel.getCenterY()+110);
-
-                    break;
-            
-                case UP:
-                    nextRoom = maze.getRoom(currentRoom.x - 1, currentRoom.y);
-                    playerModel.setCenterY(playerModel.getCenterY()-110);
-
-                    break;
-            
-                default:
-                    break;
-            }
-
-            changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
-            currentRoom = nextRoom;
-
+                break;
+        
+            default:
+                break;
         }
 
+        if(nextRoom != null && !nextRoom.notPathable){
+            changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
+            currentRoom = nextRoom;    
+            setModelRoom(currentRoom, model);
+        }
+    }
 
+    public boolean hasWon(){
+        if(currentRoom.winning){
+            return true;
+        }
+        return false;
     }
 
     void pairDirectionValues(){

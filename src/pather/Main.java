@@ -108,6 +108,14 @@ public class Main extends Application {
         player.move(movementKey);
         enemy.move();
 
+        if(player.hasWon()){
+            scene.setFill(Paint.valueOf("75e353ff"));
+        }
+
+        if(player.isDead){
+            scene.setFill(Paint.valueOf("ff8484ff"));
+        }
+
     }
 
     private void initialize(){
@@ -116,11 +124,11 @@ public class Main extends Application {
 
         // Add game object sprites
         root.getChildren().addAll(maze.getRoomSprites());
-        root.getChildren().add(player.playerModel);
-        root.getChildren().add(blockSprite);
-        root.getChildren().add(enemy.enemyModel);
+        root.getChildren().add(player.model);
+        // root.getChildren().add(blockSprite);
+        root.getChildren().add(enemy.model);
 
-        draggable.makeDraggable(blockSprite, maze, block);
+        // draggable.makeDraggable(blockSprite, maze, block);
 
         // Game loop
         AnimationTimer timer = new AnimationTimer() {
