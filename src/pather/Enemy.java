@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList; 
 
 
-public class Enemy extends Entity{
+public class Enemy extends GameObject{
     // FIELDS
 
     // Move enemy on grid
@@ -51,7 +51,7 @@ public class Enemy extends Entity{
 
         setModelRoom(nextRoom, model);
 
-        changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
+        changeRoom(currentRoom, nextRoom);
         currentRoom = nextRoom;
 
         killPlayer();
@@ -65,7 +65,7 @@ public class Enemy extends Entity{
         // Iterate through each room
         for (int i = 0; i < adjacentRooms.size(); i++) {
             // Check if room contains player in the middle
-            if(adjacentRooms.get(i).seats.get(RoomSides.MIDDLE) == player){
+            if(adjacentRooms.get(i).containedObject == player){
                 player.isDead = true;
             }
         }

@@ -1,20 +1,14 @@
 package pather;
 
-import java.util.HashMap;
-import java.util.Objects;
-import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
 /* 
  * Game object player controls
  */
 
-public class Player extends Entity {
+public class Player extends GameObject {
 
     // FIELDS
-    public HashMap<MovementKeys, RoomSides> directionValues = new HashMap<>();
-    public RoomSides seatPosition;
-
     public Room currentRoom;
     public Room nextRoom;
 
@@ -28,9 +22,7 @@ public class Player extends Entity {
         currentRoom = maze.getRoom(3, 6);
 
         // Place player in middle of current currentRoom
-        currentRoom.seats.put(RoomSides.MIDDLE, this);
-
-        pairDirectionValues();
+        currentRoom.containedObject = this;
 
         model.setFill(Color.web("5599ffff"));
 
@@ -38,19 +30,6 @@ public class Player extends Entity {
     }
 
     // METHODS
-
-    // check if there is a block on a given seat
-    public boolean isBlock(Room currentRoom, MovementKeys movementKey){
-        if(Objects.isNull(currentRoom.getSeat(directionValues.get(movementKey)))){
-            System.out.println("Not a block in that direction");
-
-            return false;
-        }
-        System.out.println("There is a block leading in the direction LOLLLL");
-
-        return true;
-    }
-
     public void move(MovementKeys movementKey){
         // THE X AND THE Y WERE REVERSED THE WHOLE TIME WTF I DONT EVEN KNOW WHAT TO THINK
 
@@ -80,7 +59,7 @@ public class Player extends Entity {
         }
 
         if(nextRoom != null && !nextRoom.notPathable){
-            changeRoomPosition(currentRoom, nextRoom, RoomSides.MIDDLE);
+            changeRoom(currentRoom, nextRoom);
             currentRoom = nextRoom;    
             setModelRoom(currentRoom, model);
         }
@@ -91,12 +70,5 @@ public class Player extends Entity {
             return true;
         }
         return false;
-    }
-
-    void pairDirectionValues(){
-        directionValues.put(MovementKeys.UP, RoomSides.TOP);
-        directionValues.put(MovementKeys.LEFT, RoomSides.LEFT);
-        directionValues.put(MovementKeys.DOWN, RoomSides.BOTTOM);
-        directionValues.put(MovementKeys.RIGHT, RoomSides.RIGHT);
     }
 }

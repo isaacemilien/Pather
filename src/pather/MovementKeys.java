@@ -4,6 +4,5 @@ enum MovementKeys {
     UP,
     DOWN,
     LEFT,
-    RIGHT,
-    ROTATE
+    RIGHT
 }

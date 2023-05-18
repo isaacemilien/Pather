@@ -10,7 +10,8 @@ import java.util.ArrayList; // import the ArrayList class
 
 public class Room {
     // FIELDS
-    HashMap<RoomSides, GameObject> seats = new HashMap<RoomSides, GameObject>();
+
+    GameObject containedObject = null;
 
     Sprite roomSprite;
 
@@ -25,24 +26,5 @@ public class Room {
 
     // CONSTRUCTORS
 
-    public Room(){
-        // Fill sides
-        seats.put(RoomSides.MIDDLE, null);
-        seats.put(RoomSides.TOP, null);
-        seats.put(RoomSides.BOTTOM, null);
-        seats.put(RoomSides.LEFT, null);
-        seats.put(RoomSides.RIGHT, null);
-    }
-
     // METHODS
-    
-    // Change what value seat holds
-    public void setSeat(RoomSides roomSides, GameObject gameObject){
-        seats.put(roomSides, gameObject);
-    }
-
-    // Return value held in seat
-    public GameObject getSeat(RoomSides roomSides){
-        return seats.get(roomSides);
-    }
 }

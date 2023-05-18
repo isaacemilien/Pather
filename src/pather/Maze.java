@@ -19,14 +19,6 @@ public class Maze {
 
     public int[][] unpathableRooms = {{0,6}, {0,5}, {0,4}, {0,3}, {2,6}, {2,5}, {2,3}, {2,2}, {3,2}, {4,3}, {4,4}, {4,5}, {6,4}, {6,5}, {1,0}, {6,1}, {5,1} };
 
-    // Pathfinding
-    Room startRoom, endRoom;
-    ArrayList<Room> openSet = new ArrayList<Room>();
-    ArrayList<Room> closedSet = new ArrayList<Room>();
-
-    // Node path leading to position
-    ArrayList<Room> path = new ArrayList<Room>();
-
     // CONSTRUCTORS
     public Maze(int theWidth, int theHeight) {
         width = theWidth;
@@ -41,7 +33,6 @@ public class Maze {
 
         populateRoomSprites(40, 40, 60, 60, 50, "e3dbdbff");
         populateUnpathableRooms(unpathableRooms, "4a4747ff");
-
 
         setWinningRoom(getRoom(5, 0), "75e353ff");
     }
@@ -75,8 +66,6 @@ public class Maze {
                 getRoom(i, j).y = j;
             }
         }
-
-
     }
 
     // Save each rooms neighbour
@@ -105,9 +94,6 @@ public class Maze {
             }
             x = xOrigin;
             y += height + squareGap;
-
-
-            
         }
     }
 
@@ -139,14 +125,6 @@ public class Maze {
     public void setWinningRoom(Room room, String color){
         room.roomSprite.setFill(Color.web(color));
         room.winning = true;
-    }
-
-    public void setEntireMazeColor(String color){
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                getRoom(i, j).roomSprite.setFill(Color.web(color));
-            }
-        }
     }
 
     // Get each current room neighbour

@@ -10,10 +10,6 @@ public class Pathfinding {
     // Store the current maze
     Maze maze;
 
-    // // Start and end rooms
-    // Room startRoom, endRoom;
-
-
     // CONSTRUCTORS
     public Pathfinding(Maze maze){
         this.maze = maze;
@@ -21,7 +17,6 @@ public class Pathfinding {
 
     // METHODS
     public ArrayList<Room> findPath(Room startRoom, Room endRoom){
-
 
         // Reset all colors, debug colors
         for (int i = 0; i < maze.board.length; i++) {
@@ -64,21 +59,14 @@ public class Pathfinding {
             
             // Check arrived goal
             if(currentRoom.x == endRoom.x && currentRoom.y == endRoom.y){
-                // System.out.println("Reached end goal");
 
                 // Populate path with rooms
                 while(currentRoom.previousRoom != null){
-                    // Colour path way to end position
-                    // currentRoom.roomSprite.setFill(Color.BLUE);
-
-
-
                     currentRoom.roomSprite.setFill(Color.web("ffff88ff"));
 
                     path.add(currentRoom.previousRoom);
                     currentRoom = currentRoom.previousRoom;
                 }
-
 
                 resetNodeValues();
 
@@ -96,7 +84,6 @@ public class Pathfinding {
 
                 // Check if non pathable neighbours appears
                 if(neighbour.notPathable){
-                    System.out.println("this neighbour is not pathable");
                     continue;
                 }
 
